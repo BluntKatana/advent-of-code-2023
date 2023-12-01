@@ -13,7 +13,7 @@ func main() {
 	for _, line := range lines {
 		var values []int
 		for _, char := range line {
-			if char >= 0 && char <= 90 {
+			if char >= 48 && char <= 57 {
 				values = append(values, int(char)-'0')
 			}
 		}
