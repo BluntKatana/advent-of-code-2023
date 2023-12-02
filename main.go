@@ -8,6 +8,7 @@ import (
 	"day3"
 	"flag"
 	"fmt"
+	"time"
 )
 
 type Day interface {
@@ -42,14 +43,31 @@ func main() {
 	}
 
 	// Print status message
-	fmt.Println("Running day", *day_flag, "part", *part_flag, "in test mode:", *test_flag)
+	if *all_flag {
+		fmt.Println("-- Running all days in test mode:", *test_flag)
+	} else {
+		if *part_flag == -1 {
+			fmt.Println("-- Running day", *day_flag, "in test mode:", *test_flag)
+		} else {
+			fmt.Println("-- Running day", *day_flag, "part", *part_flag, "in test mode:", *test_flag)
+		}
+	}
 	fmt.Println()
 
-	// Run all days
+	// Run all days up untill current one
 	if *all_flag {
-		for day := 1; day <= 31; day++ {
+		var current_day = time.Now().Day()
+		var current_year = time.Now().Year()
+
+		// If the current year is past 2023, run all days of 2023
+		if current_year > 2023 {
+			current_day = 31
+		}
+
+		for day := 1; day <= current_day; day++ {
 			d, ok := days[day]
 			if !ok {
+				fmt.Println("Day", day, "not implemented")
 				continue
 			}
 			fmt.Println("Day", day, "\tPart 1:", d.Part1(*test_flag), "\tPart 2:", d.Part2(*test_flag))
@@ -61,7 +79,7 @@ func main() {
 	// sort the days first
 	day, ok := days[*day_flag]
 	if !ok {
-		fmt.Println("Day", *day_flag, "not implemented yet")
+		fmt.Println("Day", *day_flag, "not implemented")
 		return
 	}
 

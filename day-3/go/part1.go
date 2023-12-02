@@ -14,5 +14,5 @@ func (d Day3) Part1(test_mode bool) string {
 	// content, _ := os.ReadFile(filename_part1(test_mode))
 	// lines := strings.Split(string(content), "\n")
 
-	return "Not implemented yet"
+	return "tbd"
 }
