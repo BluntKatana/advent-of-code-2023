@@ -14,7 +14,8 @@
     "string_view": "cpp",
     "unordered_map": "cpp",
     "vector": "cpp",
-    "__locale": "cpp"
+    "__locale": "cpp",
+    "filesystem": "cpp"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }
