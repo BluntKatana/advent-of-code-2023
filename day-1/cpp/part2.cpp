@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include "../../utils/utils.cpp"
 
 using namespace std;
 map<string, int> mappedNumbers = {
@@ -24,8 +25,8 @@ int main()
 {
 
     // Initialize a vector to store the file input and set the input file name.
-    std::vector<std::string> lines;
     std::string fileName = "../input.txt";
+    std::vector<std::string> lines = read_file(fileName);
 
     // Read the file and store the result in the lines vector.
     std::ifstream file(fileName);
@@ -44,7 +45,6 @@ int main()
     // Iterate over the lines vector and print each line.
     for (std::string line : lines)
     {
-        std::cout << line << std::endl;
         std::vector<int> numbers_in_line;
         std::string potential_num = "";
 
