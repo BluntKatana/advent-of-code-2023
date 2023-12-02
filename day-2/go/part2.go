@@ -1,4 +1,4 @@
-package main
+package day2
 
 import (
 	"fmt"
@@ -7,8 +7,15 @@ import (
 	"strings"
 )
 
-func main() {
-	content, _ := os.ReadFile("../input.txt")
+func filename_part2(test_mode bool) string {
+	if test_mode {
+		return "./day-2/test_part2.txt"
+	}
+	return "./day-2/input.txt"
+}
+
+func (d Day2) Part2(test_mode bool) string {
+	content, _ := os.ReadFile(filename_part2(test_mode))
 	lines := strings.Split(string(content), "\n")
 
 	total := 0
@@ -51,5 +58,5 @@ func main() {
 		total += largest_blue * largest_green * largest_red
 	}
 
-	fmt.Println("Result: ", total)
+	return fmt.Sprint(total)
 }

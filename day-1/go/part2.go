@@ -1,4 +1,4 @@
-package main
+package day1
 
 import (
 	"fmt"
@@ -12,8 +12,15 @@ var mappedStrings = map[string]int{
 	"seven": 7, "eight": 8, "nine": 9,
 }
 
-func main() {
-	content, _ := os.ReadFile("../test_part2.txt")
+func filename_part2(test_mode bool) string {
+	if test_mode {
+		return "./day-1/test_part2.txt"
+	}
+	return "./day-1/input.txt"
+}
+
+func (d Day1) Part2(test_mode bool) string {
+	content, _ := os.ReadFile(filename_part2(test_mode))
 	lines := strings.Fields(string(content))
 
 	total := 0
@@ -45,6 +52,5 @@ func main() {
 		potential_num = ""
 	}
 
-	// print result
-	fmt.Println("Part 2:", total)
+	return fmt.Sprint(total)
 }
