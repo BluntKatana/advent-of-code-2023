@@ -7,7 +7,6 @@ import (
 	"strings"
 )
 
-// initialize day 2
 type Day3 struct{}
 
 func filename_part1(test_mode bool) string {
