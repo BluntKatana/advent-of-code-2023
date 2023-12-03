@@ -8,7 +8,7 @@ Learning GO and C++ by doing the [Advent Of Code](https://adventofcode.com/2023/
 
 For the GO solutions, you can run various days and parts by running `go run main.go` in the root dir with different flags:
 
-```go
+```
 -all
     Run all days
 -day int
