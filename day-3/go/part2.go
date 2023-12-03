@@ -64,11 +64,6 @@ func (d Day3) Part2(filename *string) string {
 
 	var total_part_numbers int = 0
 
-	// print gear
-	for _, gear := range gears {
-		fmt.Println(gear)
-	}
-
 	for _, gear := range gears {
 		var directions = []Coord{
 			{-1, 0}, {1, 0}, // down, up
