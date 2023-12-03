@@ -37,7 +37,7 @@ g++ day1.cpp -o output.out && ./output.out
 | :-: | ----------------------------------------------------- | :---: | :---: |
 |  1  | [Trebuchet?!](https://adventofcode.com/2023/day/1)    | ✅ ✅ | ✅ ✅ |
 |  2  | [Cube Conundrum](https://adventofcode.com/2023/day/2) | ✅ ✅ | ✅ ✅ |
-|  3  |                                                       |       |       |
+|  3  | [Gear Ratios](https://adventofcode.com/2023/day/3)    | ✅ ✅ | ✅ ✅ |
 |  4  |                                                       |       |
 |  5  |                                                       |       |
 |  6  |                                                       |       |
