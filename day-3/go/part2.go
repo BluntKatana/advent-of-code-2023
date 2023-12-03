@@ -8,106 +8,108 @@ import (
 )
 
 func (d Day3) Part2(filename *string) string {
+
 	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
+	// initialize engine
+	var total_y int = len(lines)
+	var total_x int = len(lines[0])
+	var engine [][]int = make([][]int, total_y)
 
-	// initialize 2d array
-	total_rows := len(lines)
-	total_cols := len(lines[0])
-	engine := create_2d_array(total_rows, total_cols)
-
-	// fill the engine
-	for row_num, line := range lines {
-		for col_num, char := range line {
-			engine[row_num][col_num] = string(char)
-		}
+	for i := 0; i < total_y; i++ {
+		engine[i] = make([]int, total_x)
 	}
 
-	var gears = map[Coord][]int{}
+	var gears []Coord
 
-	// iterate through engine to find gears
-	for row_num, row := range engine {
-		// keep track of current number and gears of current number
-		var curr_num int = 0
-		var gears_of_curr_num []Coord = []Coord{}
+	// iterate through engine to find valid words
+	for y, row := range lines {
+		var num = 0
+		var num_start = 0
 
-		for col_num, char := range row {
-			num, err := strconv.Atoi(char)
+		for x, char := range row {
+			var parsed_num, _ = strconv.Atoi(string(char))
+			var is_number bool = char >= '0' && char <= '9'
 
-			if err == nil {
-				// if parsing to number is successful then add to current number
-				curr_num = curr_num*10 + num
+			if is_number {
+				// add to current number
+				num = num*10 + parsed_num
 			} else {
-				// if not number then add the current number to gears map
-				if len(gears_of_curr_num) > 0 && curr_num > 0 {
-					for _, gear := range gears_of_curr_num {
-						gears[gear] = append(gears[gear], curr_num)
+				// if not number then add curren numbet
+				// to engine at all positions starting from num_start
+				if num > 0 {
+					for i := num_start; i < x; i++ {
+						engine[y][i] = num
 					}
 				}
 
-				// reset current number and gears_of_num
-				curr_num = 0
-				gears_of_curr_num = []Coord{}
+				// reset current number and num_start
+				num = 0
+				num_start = x + 1
 			}
 
-			// if there is a gear in the surrounding
-			// then add it to the gears_of_num
-			has_gear, gears := has_gear_in_surrounding(row_num, col_num, engine)
-			if has_gear && err == nil {
-				// check if the gear is already in the gears_of_num
-				// if not then add it
-				for _, gear := range gears {
-					var is_in_gears_of_num bool = false
-					for _, gear_of_num := range gears_of_curr_num {
-						if gear_of_num == gear {
-							is_in_gears_of_num = true
-							break
-						}
-					}
-
-					if !is_in_gears_of_num {
-						gears_of_curr_num = append(gears_of_curr_num, gear)
-					}
-				}
+			// if there is a special char in the surrounding
+			if char == '*' {
+				gears = append(gears, Coord{x, y})
 			}
 		}
 
 		// check for last number
-		if len(gears_of_curr_num) > 0 && curr_num > 0 {
-			for _, gear := range gears_of_curr_num {
-				gears[gear] = append(gears[gear], curr_num)
+		if num > 0 {
+			for i := num_start; i < total_x; i++ {
+				engine[y][i] = num
 			}
 		}
 	}
 
-	// count the number of gears with exactly 2 numbers
 	var total_part_numbers int = 0
-	for _, nums := range gears {
+
+	// print gear
+	for _, gear := range gears {
+		fmt.Println(gear)
+	}
+
+	for _, gear := range gears {
+		var directions = []Coord{
+			{-1, 0}, {1, 0}, // down, up
+			{0, -1}, {0, 1}, // right, left
+			{-1, -1}, {1, 1}, // down-right, up-left
+			{-1, 1}, {1, -1}, // down-left, up-right
+		}
+
+		var nums []int = []int{}
+
+		for _, dir := range directions {
+			var y_new int = gear.y + dir.y
+			var x_new int = gear.x + dir.x
+
+			// check if out of bounds and if number is 0
+			if y_new < 0 || y_new >= total_y || x_new < 0 || x_new >= total_x || engine[y_new][x_new] == 0 {
+				continue
+			}
+
+			// make sure that the number is not already in nums
+			var already_in_nums bool = false
+
+			for _, num := range nums {
+				if num == engine[y_new][x_new] {
+					already_in_nums = true
+					break
+				}
+			}
+
+			if already_in_nums {
+				continue
+			}
+
+			nums = append(nums, engine[y_new][x_new])
+		}
+
+		// only add to total_part_numbers if there are 2 numbers next to the gear
 		if len(nums) == 2 {
 			total_part_numbers += nums[0] * nums[1]
 		}
 	}
 
 	return fmt.Sprint(total_part_numbers)
-}
-
-func has_gear_in_surrounding(row_num int, col_num int, array_2d [][]string) (bool, []Coord) {
-	var surrounding []Coord = []Coord{
-		{row_num - 1, col_num}, {row_num + 1, col_num}, // up, down
-		{row_num, col_num - 1}, {row_num, col_num + 1}, // left, right
-		{row_num - 1, col_num - 1}, {row_num - 1, col_num + 1}, // up-left, up-right
-		{row_num + 1, col_num - 1}, {row_num + 1, col_num + 1}, // down-left, down-right
-	}
-
-	var gears []Coord = []Coord{}
-
-	for _, dir := range surrounding {
-		if dir.row >= 0 && dir.row < len(array_2d) && dir.col >= 0 && dir.col < len(array_2d[0]) {
-			if array_2d[dir.row][dir.col] == "*" {
-				gears = append(gears, dir)
-			}
-		}
-	}
-
-	return len(gears) > 0, gears
 }

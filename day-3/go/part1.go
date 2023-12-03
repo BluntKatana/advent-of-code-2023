@@ -5,97 +5,120 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Day3 struct{}
 
 type Coord struct {
-	row int
-	col int
-}
-
-func create_2d_array(row int, col int) [][]string {
-	engine := make([][]string, row)
-	for i := range engine {
-		engine[i] = make([]string, col)
-	}
-	return engine
+	x int
+	y int
 }
 
 func (d Day3) Part1(filename *string) string {
+	start := time.Now()
 	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
-	// initialize 2d array
-	total_rows := len(lines)
-	total_cols := len(lines[0])
-	engine := create_2d_array(total_rows, total_cols)
+	// initialize engine
+	var total_y int = len(lines)
+	var total_x int = len(lines[0])
+	var engine [][]int = make([][]int, total_y)
 
-	// fill the engine
-	for row_num, line := range lines {
-		for col_num, char := range line {
-			engine[row_num][col_num] = string(char)
-		}
+	for i := 0; i < total_y; i++ {
+		engine[i] = make([]int, total_x)
 	}
 
-	var total_part_numbers int = 0
+	var special_chars []Coord
 
 	// iterate through engine to find valid words
-	for row_num, row := range engine {
-		// create a list of numbers which are later combines
-		// into a single potetial part number
-		var curr_num int = 0
-		var is_valid_part bool = false
+	for y, row := range lines {
+		var num = 0
+		var num_start = 0
 
-		for col_num, char := range row {
-			num, err := strconv.Atoi(char)
+		for x, char := range row {
+			var parsed_num, _ = strconv.Atoi(string(char))
+			var is_number bool = char >= '0' && char <= '9'
 
-			if err == nil {
-				// if number then add to current number
-				curr_num = curr_num*10 + num
+			if is_number {
+				// add to current number
+				num = num*10 + parsed_num
 			} else {
-				// if not number then reset current number
-				if is_valid_part && curr_num > 0 {
-					total_part_numbers += curr_num
+				// if not number then add curren numbet
+				// to engine at all positions starting from num_start
+				if num > 0 {
+					for i := num_start; i < x; i++ {
+						engine[y][i] = num
+					}
 				}
 
-				curr_num = 0
-				is_valid_part = false
+				// reset current number and num_start
+				num = 0
+				num_start = x + 1
 			}
 
-			// check for special character surrounding number
-			if err == nil && has_special_char_in_surrounding(row_num, col_num, engine) {
-				is_valid_part = true
+			// if there is a special char in the surrounding
+			if !is_number && char != '.' {
+				special_chars = append(special_chars, Coord{x, y})
 			}
 		}
 
 		// check for last number
-		if is_valid_part && curr_num > 0 {
-			total_part_numbers += curr_num
-		}
-	}
-
-	return fmt.Sprint(total_part_numbers)
-}
-
-func has_special_char_in_surrounding(row_num int, col_num int, array_2d [][]string) bool {
-	var surrounding []Coord = []Coord{
-		{row_num - 1, col_num}, {row_num + 1, col_num}, // up, down
-		{row_num, col_num - 1}, {row_num, col_num + 1}, // left, right
-		{row_num - 1, col_num - 1}, {row_num - 1, col_num + 1}, // up-left, up-right
-		{row_num + 1, col_num - 1}, {row_num + 1, col_num + 1}, // down-left, down-right
-	}
-
-	var has_special_char bool = false
-
-	for _, dir := range surrounding {
-		if dir.row >= 0 && dir.row < len(array_2d) && dir.col >= 0 && dir.col < len(array_2d[0]) {
-			char := array_2d[dir.row][dir.col]
-			if _, err := strconv.Atoi(char); err != nil && char != "." {
-				has_special_char = true
+		if num > 0 {
+			for i := num_start; i < total_x; i++ {
+				engine[y][i] = num
 			}
 		}
 	}
 
-	return has_special_char
+	// iterate through special chars to find the total part numbers
+	var total_part_numbers int = 1
+
+	for _, coord := range special_chars {
+		var directions = []Coord{
+			{-1, 0}, {1, 0}, // down, up
+			{0, -1}, {0, 1}, // right, left
+			{-1, -1}, {1, 1}, // down-right, up-left
+			{-1, 1}, {1, -1}, // down-left, up-right
+		}
+
+		// iterate through directions to find numbers that surround
+		// the special char
+		for _, direction := range directions {
+			var new_y = coord.y + direction.y
+			var new_x = coord.x + direction.x
+
+			// make sure that y and x are within the bounds of the engine
+			if new_y < 0 || new_y >= total_y || new_x < 0 || new_x >= total_x || engine[new_y][new_x] == 0 {
+				continue
+			}
+
+			// if the number is found then add it to the total part numbers
+			total_part_numbers += engine[new_y][new_x]
+
+			// remove the number from the engine so that it won't be counted again
+			// also remove the places where the number is found
+			engine[new_y][new_x] = 0
+
+			// remove the lef and right part of the new_x and new_y
+			// so that it won't be counted again
+			for x := new_x + 1; x < total_x && engine[new_y][x] > 0; x++ {
+				engine[new_y][x] = 0
+				break
+			}
+
+			for x := new_x - 1; x >= 0 && engine[new_y][x] > 0; x-- {
+				engine[new_y][x] = 0
+				break
+			}
+
+		}
+	}
+
+	t := time.Now()
+	elapsed := t.Sub(start)
+
+	fmt.Println("Part 1 took", elapsed)
+
+	return fmt.Sprint(total_part_numbers)
 }
