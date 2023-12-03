@@ -8,6 +8,8 @@ import (
 	"day3"
 	"flag"
 	"fmt"
+	"log"
+	"os"
 	"time"
 )
 
@@ -21,17 +23,44 @@ var days = map[int]Day{
 	1: day1.Day1{}, 2: day2.Day2{}, 3: day3.Day3{},
 }
 
+func log_to_file(str string, suffix string) {
+	// Log to console
+	fmt.Print(str)
+
+	// Create log file or open existing one
+	file_name := "go_log.txt"
+
+	// Add current date and suffix to log file name
+	total_str := "#" + suffix + " | " + time.Now().Format("2006-01-02") + " | " + str
+
+	// Add string attempt to log file with timestamp
+	f, err := os.OpenFile(file_name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// Write string to file
+	if _, err := f.WriteString(total_str); err != nil {
+		log.Println(err)
+	}
+
+	// Close file
+	if err := f.Close(); err != nil {
+		log.Println(err)
+	}
+}
+
 // Main function
 func main() {
 	// Retrieve flags from command line (day, test)
-	var day_flag = flag.Int("day", -1, "Day to run (between 1 and 31)")
+	var day_flag = flag.Int("day", -1, "Day to run (between 1 and 25)")
 	var part_flag = flag.Int("part", -1, "Part to run (1 or 2)")
 	var test_flag = flag.Bool("test", false, "Run day in test mode (input.txt -> test.txt)")
 	var all_flag = flag.Bool("all", false, "Run all days")
 	flag.Parse()
 
 	// Check if day is valid (1-31) or there is an all flag
-	if (*day_flag < -1 || *day_flag > 31) && !*all_flag {
+	if (*day_flag < -1 || *day_flag > 25) && !*all_flag {
 		fmt.Println("Choose a day between 1 and 31, or use -all to run all days")
 		return
 	}
@@ -70,7 +99,7 @@ func main() {
 				fmt.Println("Day", day, "not implemented")
 				continue
 			}
-			fmt.Println("Day", day, "\tPart 1:", d.Part1(*test_flag), "\tPart 2:", d.Part2(*test_flag))
+			log_to_file(fmt.Sprintf("Day %d Part 1: %s\tPart 2: %s\n", day, d.Part1(*test_flag), d.Part2(*test_flag)), "all")
 		}
 		return
 	}
@@ -85,20 +114,18 @@ func main() {
 
 	// Run both parts
 	if *part_flag == -1 {
-		fmt.Println("Day", *day_flag, "Part 1:", day.Part1(*test_flag), "\tPart 2:", day.Part2(*test_flag))
+		log_to_file(fmt.Sprintf("Day %d Part 1: %s\tPart 2: %s\n", *day_flag, day.Part1(*test_flag), day.Part2(*test_flag)), "day"+fmt.Sprintf("%d", *day_flag))
 		return
 	}
 
 	// Run a specific part
 	if *part_flag == 1 {
-		fmt.Println("Day", *day_flag, "Part 1")
-		fmt.Println("Result:", day.Part1(*test_flag))
+		log_to_file(fmt.Sprintf("Day %d Part 1: %s\n", *day_flag, day.Part1(*test_flag)), "day"+fmt.Sprintf("%d", *day_flag))
 		return
 	}
 
 	if *part_flag == 2 {
-		fmt.Println("Day", *day_flag, "Part 2")
-		fmt.Println("Result:", day.Part2(*test_flag))
+		log_to_file(fmt.Sprintf("Day %d Part 2: %s\n", *day_flag, day.Part2(*test_flag)), "day"+fmt.Sprintf("%d", *day_flag))
 		return
 	}
 }

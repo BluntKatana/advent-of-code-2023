@@ -80,13 +80,13 @@ func (d Day3) Part1(test_mode bool) string {
 	return fmt.Sprint(total_part_numbers)
 }
 
-type Dir struct {
+type Coord struct {
 	row int
 	col int
 }
 
 func has_special_char_in_surrounding(row_num int, col_num int, array_2d [][]string) bool {
-	var surrounding []Dir = []Dir{
+	var surrounding []Coord = []Coord{
 		{row_num - 1, col_num}, {row_num + 1, col_num}, // up, down
 		{row_num, col_num - 1}, {row_num, col_num + 1}, // left, right
 		{row_num - 1, col_num - 1}, {row_num - 1, col_num + 1}, // up-left, up-right

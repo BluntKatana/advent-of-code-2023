@@ -14,7 +14,7 @@ func filename_part2(test_mode bool) string {
 	return "./day-3/input.txt"
 }
 
-var gears = map[Dir][]int{}
+var gears = map[Coord][]int{}
 
 func (d Day3) Part2(test_mode bool) string {
 	content, _ := os.ReadFile(filename_part2(test_mode))
@@ -37,7 +37,7 @@ func (d Day3) Part2(test_mode bool) string {
 		// create a list of numbers which are later combines
 		// into a single potetial part number
 		var curr_num int = 0
-		var gears_of_num []Dir = []Dir{}
+		var gears_of_num []Coord = []Coord{}
 
 		for col_num, char := range row {
 			num, err := strconv.Atoi(char)
@@ -46,9 +46,6 @@ func (d Day3) Part2(test_mode bool) string {
 				// if number then add to current number
 				curr_num = curr_num*10 + num
 			} else {
-				if curr_num > 0 {
-					fmt.Println(curr_num, gears_of_num)
-				}
 				// if not number then add the current number to gears map
 				if len(gears_of_num) > 0 && curr_num > 0 {
 					for _, gear := range gears_of_num {
@@ -58,7 +55,7 @@ func (d Day3) Part2(test_mode bool) string {
 
 				// reset current number and gears_of_num
 				curr_num = 0
-				gears_of_num = []Dir{}
+				gears_of_num = []Coord{}
 			}
 
 			// if there is a gear in the surrounding
@@ -91,8 +88,6 @@ func (d Day3) Part2(test_mode bool) string {
 		}
 	}
 
-	fmt.Println("MAP:", gears)
-
 	// count the number of gears with 2 or more numbers
 	var total_part_numbers int = 0
 	for _, nums := range gears {
@@ -104,15 +99,15 @@ func (d Day3) Part2(test_mode bool) string {
 	return fmt.Sprint(total_part_numbers)
 }
 
-func has_gear_in_surrounding(row_num int, col_num int, array_2d [][]string) (bool, []Dir) {
-	var surrounding []Dir = []Dir{
+func has_gear_in_surrounding(row_num int, col_num int, array_2d [][]string) (bool, []Coord) {
+	var surrounding []Coord = []Coord{
 		{row_num - 1, col_num}, {row_num + 1, col_num}, // up, down
 		{row_num, col_num - 1}, {row_num, col_num + 1}, // left, right
 		{row_num - 1, col_num - 1}, {row_num - 1, col_num + 1}, // up-left, up-right
 		{row_num + 1, col_num - 1}, {row_num + 1, col_num + 1}, // down-left, down-right
 	}
 
-	var gears []Dir = []Dir{}
+	var gears []Coord = []Coord{}
 
 	for _, dir := range surrounding {
 		if dir.row >= 0 && dir.row < len(array_2d) && dir.col >= 0 && dir.col < len(array_2d[0]) {
