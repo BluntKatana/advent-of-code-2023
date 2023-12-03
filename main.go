@@ -14,40 +14,13 @@ import (
 )
 
 type Day interface {
-	Part1(bool) string
-	Part2(bool) string
+	Part1(*string) string
+	Part2(*string) string
 }
 
 // Create a map of days
 var days = map[int]Day{
 	1: day1.Day1{}, 2: day2.Day2{}, 3: day3.Day3{},
-}
-
-func log_to_file(str string, suffix string) {
-	// Log to console
-	fmt.Print(str)
-
-	// Create log file or open existing one
-	file_name := "go_log.txt"
-
-	// Add current date and suffix to log file name
-	total_str := "#" + suffix + " | " + time.Now().Format("2006-01-02") + " | " + str
-
-	// Add string attempt to log file with timestamp
-	f, err := os.OpenFile(file_name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Println(err)
-	}
-
-	// Write string to file
-	if _, err := f.WriteString(total_str); err != nil {
-		log.Println(err)
-	}
-
-	// Close file
-	if err := f.Close(); err != nil {
-		log.Println(err)
-	}
 }
 
 // Main function
@@ -60,7 +33,7 @@ func main() {
 	flag.Parse()
 
 	// Check if day is valid (1-31) or there is an all flag
-	if (*day_flag < -1 || *day_flag > 25) && !*all_flag {
+	if (*day_flag < 0 || *day_flag > 25) && !*all_flag {
 		fmt.Println("Choose a day between 1 and 31, or use -all to run all days")
 		return
 	}
@@ -99,7 +72,8 @@ func main() {
 				fmt.Println("Day", day, "not implemented")
 				continue
 			}
-			log_to_file(fmt.Sprintf("Day %d Part 1: %s\tPart 2: %s\n", day, d.Part1(*test_flag), d.Part2(*test_flag)), "all")
+			filename := create_filename(&day, part_flag, test_flag)
+			log_to_file(fmt.Sprintf("Day %d Part 1: %s\tPart 2: %s\n", day, d.Part1(&filename), d.Part2(&filename)), "all")
 		}
 		return
 	}
@@ -112,20 +86,69 @@ func main() {
 		return
 	}
 
+	filename := create_filename(day_flag, part_flag, test_flag)
+
 	// Run both parts
 	if *part_flag == -1 {
-		log_to_file(fmt.Sprintf("Day %d Part 1: %s\tPart 2: %s\n", *day_flag, day.Part1(*test_flag), day.Part2(*test_flag)), "day"+fmt.Sprintf("%d", *day_flag))
+		log_to_file(fmt.Sprintf("Day %d Part 1: %s\tPart 2: %s\n", *day_flag, day.Part1(&filename), day.Part2(&filename)), "day"+fmt.Sprintf("%d", *day_flag))
 		return
 	}
 
 	// Run a specific part
 	if *part_flag == 1 {
-		log_to_file(fmt.Sprintf("Day %d Part 1: %s\n", *day_flag, day.Part1(*test_flag)), "day"+fmt.Sprintf("%d", *day_flag))
+		log_to_file(fmt.Sprintf("Day %d Part 1: %s\n", *day_flag, day.Part1(&filename)), "day"+fmt.Sprintf("%d", *day_flag))
 		return
 	}
 
 	if *part_flag == 2 {
-		log_to_file(fmt.Sprintf("Day %d Part 2: %s\n", *day_flag, day.Part2(*test_flag)), "day"+fmt.Sprintf("%d", *day_flag))
+		log_to_file(fmt.Sprintf("Day %d Part 2: %s\n", *day_flag, day.Part2(&filename)), "day"+fmt.Sprintf("%d", *day_flag))
 		return
 	}
+}
+
+// Log the output to a file with a timestamp and print it to the console
+// It keeps track of the amount of times a day is run
+func log_to_file(str string, suffix string) {
+	// Log to console
+	fmt.Print(str)
+
+	// Create log file or open existing one
+	file_name := "go_log.txt"
+
+	// Add current date and suffix to log file name
+	total_str := "#" + suffix + " | " + time.Now().Format("2006-01-02") + " | " + str
+
+	// Add string attempt to log file with timestamp
+	f, err := os.OpenFile(file_name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// Write string to file
+	if _, err := f.WriteString(total_str); err != nil {
+		log.Println(err)
+	}
+
+	// Close file
+	if err := f.Close(); err != nil {
+		log.Println(err)
+	}
+}
+
+// Create filename based on day, part and test mode
+func create_filename(day *int, part *int, test_mode *bool) string {
+	// Create filename
+	filename := "./day-" + fmt.Sprintf("%d", *day) + "/input.txt"
+
+	if !*test_mode {
+		return filename
+	}
+	// If test mode is on, change filename
+	if *part == 1 {
+		filename = "./day-" + fmt.Sprintf("%d", *day) + "/test_part1.txt"
+	} else {
+		filename = "./day-" + fmt.Sprintf("%d", *day) + "/test_part2.txt"
+	}
+
+	return filename
 }

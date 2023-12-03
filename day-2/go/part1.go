@@ -10,19 +10,12 @@ import (
 // initialize day 2
 type Day2 struct{}
 
-func filename_part1(test_mode bool) string {
-	if test_mode {
-		return "./day-2/test_part1.txt"
-	}
-	return "./day-2/input.txt"
-}
-
 var MAP_MAX_PER_COLOR = map[string]int{
 	"red": 12, "green": 13, "blue": 14,
 }
 
-func (d Day2) Part1(test_mode bool) string {
-	content, _ := os.ReadFile(filename_part1(test_mode))
+func (d Day2) Part1(filename *string) string {
+	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
 	game_id_total := 0

@@ -9,11 +9,9 @@ import (
 
 type Day3 struct{}
 
-func filename_part1(test_mode bool) string {
-	if test_mode {
-		return "./day-3/test_part1.txt"
-	}
-	return "./day-3/input.txt"
+type Coord struct {
+	row int
+	col int
 }
 
 func create_2d_array(row int, col int) [][]string {
@@ -24,8 +22,8 @@ func create_2d_array(row int, col int) [][]string {
 	return engine
 }
 
-func (d Day3) Part1(test_mode bool) string {
-	content, _ := os.ReadFile(filename_part1(test_mode))
+func (d Day3) Part1(filename *string) string {
+	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
 	// initialize 2d array
@@ -78,11 +76,6 @@ func (d Day3) Part1(test_mode bool) string {
 	}
 
 	return fmt.Sprint(total_part_numbers)
-}
-
-type Coord struct {
-	row int
-	col int
 }
 
 func has_special_char_in_surrounding(row_num int, col_num int, array_2d [][]string) bool {

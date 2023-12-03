@@ -9,15 +9,8 @@ import (
 // initialize day 1
 type Day1 struct{}
 
-func filename_part1(test_mode bool) string {
-	if test_mode {
-		return "./day-1/test_part1.txt"
-	}
-	return "./day-1/input.txt"
-}
-
-func (d Day1) Part1(test_mode bool) string {
-	content, _ := os.ReadFile(filename_part1(test_mode))
+func (d Day1) Part1(filename *string) string {
+	content, _ := os.ReadFile(*filename)
 
 	lines := strings.Fields(string(content))
 	total := 0
@@ -30,7 +23,9 @@ func (d Day1) Part1(test_mode bool) string {
 			}
 		}
 
-		total += values[0]*10 + values[len(values)-1]
+		if len := len(values) - 1; len > 0 {
+			total += values[0]*10 + values[len]
+		}
 	}
 
 	return fmt.Sprint(total)

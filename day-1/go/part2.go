@@ -12,15 +12,8 @@ var mappedStrings = map[string]int{
 	"seven": 7, "eight": 8, "nine": 9,
 }
 
-func filename_part2(test_mode bool) string {
-	if test_mode {
-		return "./day-1/test_part2.txt"
-	}
-	return "./day-1/input.txt"
-}
-
-func (d Day1) Part2(test_mode bool) string {
-	content, _ := os.ReadFile(filename_part2(test_mode))
+func (d Day1) Part2(filename *string) string {
+	content, _ := os.ReadFile(*filename)
 	lines := strings.Fields(string(content))
 
 	total := 0

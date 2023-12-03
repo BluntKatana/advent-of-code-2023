@@ -7,17 +7,8 @@ import (
 	"strings"
 )
 
-func filename_part2(test_mode bool) string {
-	if test_mode {
-		return "./day-3/test_part2.txt"
-	}
-	return "./day-3/input.txt"
-}
-
-var gears = map[Coord][]int{}
-
-func (d Day3) Part2(test_mode bool) string {
-	content, _ := os.ReadFile(filename_part2(test_mode))
+func (d Day3) Part2(filename *string) string {
+	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
 	// initialize 2d array
@@ -32,30 +23,31 @@ func (d Day3) Part2(test_mode bool) string {
 		}
 	}
 
-	// iterate through engine to find valid words
+	var gears = map[Coord][]int{}
+
+	// iterate through engine to find gears
 	for row_num, row := range engine {
-		// create a list of numbers which are later combines
-		// into a single potetial part number
+		// keep track of current number and gears of current number
 		var curr_num int = 0
-		var gears_of_num []Coord = []Coord{}
+		var gears_of_curr_num []Coord = []Coord{}
 
 		for col_num, char := range row {
 			num, err := strconv.Atoi(char)
 
 			if err == nil {
-				// if number then add to current number
+				// if parsing to number is successful then add to current number
 				curr_num = curr_num*10 + num
 			} else {
 				// if not number then add the current number to gears map
-				if len(gears_of_num) > 0 && curr_num > 0 {
-					for _, gear := range gears_of_num {
+				if len(gears_of_curr_num) > 0 && curr_num > 0 {
+					for _, gear := range gears_of_curr_num {
 						gears[gear] = append(gears[gear], curr_num)
 					}
 				}
 
 				// reset current number and gears_of_num
 				curr_num = 0
-				gears_of_num = []Coord{}
+				gears_of_curr_num = []Coord{}
 			}
 
 			// if there is a gear in the surrounding
@@ -66,7 +58,7 @@ func (d Day3) Part2(test_mode bool) string {
 				// if not then add it
 				for _, gear := range gears {
 					var is_in_gears_of_num bool = false
-					for _, gear_of_num := range gears_of_num {
+					for _, gear_of_num := range gears_of_curr_num {
 						if gear_of_num == gear {
 							is_in_gears_of_num = true
 							break
@@ -74,21 +66,21 @@ func (d Day3) Part2(test_mode bool) string {
 					}
 
 					if !is_in_gears_of_num {
-						gears_of_num = append(gears_of_num, gear)
+						gears_of_curr_num = append(gears_of_curr_num, gear)
 					}
 				}
 			}
 		}
 
 		// check for last number
-		if len(gears_of_num) > 0 && curr_num > 0 {
-			for _, gear := range gears_of_num {
+		if len(gears_of_curr_num) > 0 && curr_num > 0 {
+			for _, gear := range gears_of_curr_num {
 				gears[gear] = append(gears[gear], curr_num)
 			}
 		}
 	}
 
-	// count the number of gears with 2 or more numbers
+	// count the number of gears with exactly 2 numbers
 	var total_part_numbers int = 0
 	for _, nums := range gears {
 		if len(nums) == 2 {

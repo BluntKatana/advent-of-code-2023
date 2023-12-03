@@ -7,15 +7,8 @@ import (
 	"strings"
 )
 
-func filename_part2(test_mode bool) string {
-	if test_mode {
-		return "./day-2/test_part2.txt"
-	}
-	return "./day-2/input.txt"
-}
-
-func (d Day2) Part2(test_mode bool) string {
-	content, _ := os.ReadFile(filename_part2(test_mode))
+func (d Day2) Part2(filename *string) string {
+	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
 	total := 0
