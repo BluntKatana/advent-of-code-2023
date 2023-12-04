@@ -31,7 +31,9 @@ g++ day1.cpp -o output.out && ./output.out
 
 ---
 
-### Progress :)
+### Progress
+
+I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress.
 
 | Day | Title                                                 |  Go   |  C++  |
 | :-: | ----------------------------------------------------- | :---: | :---: |
