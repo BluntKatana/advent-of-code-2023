@@ -33,7 +33,7 @@ std::vector<std::string> read_file(std::string &fileName)
     return lines;
 }
 
-int print_string_vector(std::vector<std::string> str_vector)
+void print_string_vector(std::vector<std::string> str_vector)
 {
     std::cout << str_vector.size() << " [";
     for (std::string str : str_vector)
@@ -43,8 +43,6 @@ int print_string_vector(std::vector<std::string> str_vector)
     }
 
     std::cout << "]" << std::endl;
-
-    return 0;
 }
 
 std::vector<std::string> splitter(std::string s, std::string seperator)
@@ -74,4 +72,10 @@ std::vector<std::string> splitter(std::string s, std::string seperator)
     res.push_back(s);
 
     return res;
+}
+
+// trim both ends
+std::string trim(std::string s)
+{
+    return s.substr(s.find_first_not_of(" "), s.find_last_not_of(" ") + 1);
 }
