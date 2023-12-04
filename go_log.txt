@@ -257,3 +257,103 @@
 #day3 | 2023-12-03 | Day 3 Part 2: 467835
 #day3 | 2023-12-03 | Day 3 Part 2: 86841457
 #day3 | 2023-12-03 | Day 3 Part 2: 467835
+#day4 | 2023-12-04 | Day 4 Part 1: 0
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 16
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 32
+#day4 | 2023-12-04 | Day 4 Part 1: 15
+#day4 | 2023-12-04 | Day 4 Part 1: 30
+#day4 | 2023-12-04 | Day 4 Part 1: 15
+#day4 | 2023-12-04 | Day 4 Part 1: 4
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 14
+#day4 | 2023-12-04 | Day 4 Part 1: 12
+#day4 | 2023-12-04 | Day 4 Part 1: 12
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 1299904
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 1299904
+#day4 | 2023-12-04 | Day 4 Part 1: 0
+#day4 | 2023-12-04 | Day 4 Part 1: 0
+#day4 | 2023-12-04 | Day 4 Part 1: 0
+#day4 | 2023-12-04 | Day 4 Part 1: 0
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 13
+#day4 | 2023-12-04 | Day 4 Part 1: 21558
+#day4 | 2023-12-04 | Day 4 Part 2: 4
+#day4 | 2023-12-04 | Day 4 Part 2: 4
+#day4 | 2023-12-04 | Day 4 Part 2: 4
+#day4 | 2023-12-04 | Day 4 Part 2: 0
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 1
+#day4 | 2023-12-04 | Day 4 Part 2: 5
+#day4 | 2023-12-04 | Day 4 Part 2: 10
+#day4 | 2023-12-04 | Day 4 Part 2: 10
+#day4 | 2023-12-04 | Day 4 Part 2: 10
+#day4 | 2023-12-04 | Day 4 Part 2: 14
+#day4 | 2023-12-04 | Day 4 Part 2: 53
+#day4 | 2023-12-04 | Day 4 Part 2: 29
+#day4 | 2023-12-04 | Day 4 Part 2: 29
+#day4 | 2023-12-04 | Day 4 Part 2: 29
+#day4 | 2023-12-04 | Day 4 Part 2: 29
+#day4 | 2023-12-04 | Day 4 Part 2: 14
+#day4 | 2023-12-04 | Day 4 Part 2: 40
+#day4 | 2023-12-04 | Day 4 Part 2: 29
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 50
+#day4 | 2023-12-04 | Day 4 Part 2: 105
+#day4 | 2023-12-04 | Day 4 Part 2: 50
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 52
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 13
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 52
+#day4 | 2023-12-04 | Day 4 Part 2: 23
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 28
+#day4 | 2023-12-04 | Day 4 Part 2: 30
+#day4 | 2023-12-04 | Day 4 Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 7105148128690544917
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
