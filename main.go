@@ -7,6 +7,7 @@ import (
 	"day2"
 	"day3"
 	"day4"
+	"day5"
 	"flag"
 	"fmt"
 	"log"
@@ -22,7 +23,7 @@ type Day interface {
 // Create a map of days
 var days = map[int]Day{
 	1: day1.Day1{}, 2: day2.Day2{}, 3: day3.Day3{},
-	4: day4.Day4{},
+	4: day4.Day4{}, 5: day5.Day5{},
 }
 
 // Main function

@@ -357,3 +357,47 @@
 #day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
 #day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
 #day4 | 2023-12-04 | Day 4 Part 1: 21558	Part 2: 10425665
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: not implemented
+#day5 | 2023-12-05 | Day 5 Part 1: 0
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 32
+#day5 | 2023-12-05 | Day 5 Part 1: 35
+#day5 | 2023-12-05 | Day 5 Part 1: 265018614
+#day5 | 2023-12-05 | Day 5 Part 1: 265018614
+#day5 | 2023-12-05 | Day 5 Part 1: 265018614
