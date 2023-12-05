@@ -9,7 +9,7 @@ import (
 
 type Day5 struct{}
 
-type Range struct {
+type MappedRange struct {
 	Destination int
 	Source      int
 	Length      int
@@ -21,11 +21,11 @@ func (d Day5) Part1(filename *string) string {
 
 	// create a map of maps from the input
 	var steps = [7]string{"seed-to-soil", "soil-to-fertilizer", "fertilizer-to-water", "water-to-light", "light-to-temperature", "temperature-to-humidity", "humidity-to-location"}
-	var ranges map[string][]Range = make(map[string][]Range)
+	var ranges map[string][]MappedRange = make(map[string][]MappedRange)
 	var seeds []int
 
 	for _, step := range steps {
-		ranges[step] = []Range{}
+		ranges[step] = []MappedRange{}
 	}
 
 	// pre-processing the input
@@ -63,7 +63,7 @@ func (d Day5) Part1(filename *string) string {
 		var length, _ = strconv.Atoi(parsed_ranges[2])
 
 		// add the range to the map
-		ranges[processing_step] = append(ranges[processing_step], Range{destination, source, length})
+		ranges[processing_step] = append(ranges[processing_step], MappedRange{destination, source, length})
 	}
 
 	var lowest_location int = -1
