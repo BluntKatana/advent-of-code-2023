@@ -3,73 +3,94 @@ package day5
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
-
-// filter out a string from an array of strings
-func filter_with(arr *[]string, str string) {
-	for i := 0; i < len(*arr)-1; i++ {
-		if (*arr)[i] == str {
-			*arr = append((*arr)[:i], (*arr)[i+1:]...)
-		}
-	}
-}
 
 func (d Day5) Part2(filename *string) string {
 	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
-	// clock the time
+	// start clock
 	start := time.Now()
 
-	var cards map[int]int = map[int]int{}
+	// create a map of maps from the input
+	var steps = [7]string{"seed-to-soil", "soil-to-fertilizer", "fertilizer-to-water", "water-to-light", "light-to-temperature", "temperature-to-humidity", "humidity-to-location"}
+	var ranges map[string][]Range = make(map[string][]Range)
+	var seeds []int
 
-	for card_num, line := range lines {
-		var all_numbers = strings.Split(line, ": ")
-		var split_numbers = strings.Split(all_numbers[1], " | ")
-		var winning_numbers = strings.Split(strings.Trim(split_numbers[0], " "), " ")
-		var own_numbers = strings.Split(strings.Trim(split_numbers[1], " "), " ")
-
-		// filter out the spaces for the numbers
-		filter_with(&winning_numbers, "")
-		filter_with(&own_numbers, "")
-
-		var count_winners = 0
-
-		// create a map to hold the winning numbers
-		winners_num_map := map[string]bool{}
-		for _, winning_number := range winning_numbers {
-			winners_num_map[winning_number] = true
-		}
-
-		// loop through the own numbers and see if they match
-		for _, own_number := range own_numbers {
-			if winners_num_map[own_number] {
-				count_winners++
-			}
-		}
-
-		// check if we won!
-		if count_winners > 0 {
-			for i := 1; i <= count_winners; i++ {
-				cards[card_num+i] += 1 + cards[card_num]
-			}
-		}
-
-		// add the card to self
-		cards[card_num] += 1
+	for _, step := range steps {
+		ranges[step] = []Range{}
 	}
 
-	// count the total number of scratch cards
-	var total_scratch_cards = 0
+	// pre-processing the input
+	var processing_step string
+	// ranges and seeds
+	for line_idx, line := range lines {
+		// check if line is empty
+		if line == "" {
+			continue
+		}
 
-	for _, scratch_count := range cards {
-		total_scratch_cards += scratch_count
+		// parse the line with the seeds
+		if line_idx == 0 {
+			var unparsed_seeds []string = strings.Split(strings.Split(line, ": ")[1], " ")
+
+			// conver the seeds into pairs and add them to the map
+			for i := 0; i < len(unparsed_seeds); i += 2 {
+				var initial_seed, _ = strconv.Atoi(unparsed_seeds[i])
+				var length, _ = strconv.Atoi(unparsed_seeds[i+1])
+				for j := initial_seed; j < initial_seed+length; j++ {
+					seeds = append(seeds, j)
+				}
+			}
+			continue
+		}
+
+		// check if line contains a step
+		if strings.Contains(line, ":") {
+			processing_step = strings.Split(line, " ")[0]
+			continue
+		}
+
+		// parse the line with the ranges
+
+		// check if line is empty
+		var parsed_ranges []string = strings.Split(line, " ")
+		var destination, _ = strconv.Atoi(parsed_ranges[0])
+		var source, _ = strconv.Atoi(parsed_ranges[1])
+		var length, _ = strconv.Atoi(parsed_ranges[2])
+
+		// add the range to the map
+		ranges[processing_step] = append(ranges[processing_step], Range{destination, source, length})
+	}
+
+	var lowest_location int = -1
+
+	// process the seeds until they reach the location
+	for _, seed := range seeds {
+		var step_number int = seed
+		for _, step := range steps {
+			// for every step check if the seed is in the range
+			for _, range_ := range ranges[step] {
+				if step_number >= range_.Source && step_number < range_.Source+range_.Length {
+					step_number = range_.Destination + step_number - range_.Source
+
+					// break out of the current for loop and continue with the next step
+					break
+				}
+			}
+		}
+
+		// check if the current seed is the lowest
+		if lowest_location == -1 || step_number < lowest_location {
+			lowest_location = step_number
+		}
 	}
 
 	// print the time it took to run
 	fmt.Println(time.Since(start))
 
-	return fmt.Sprint(total_scratch_cards)
+	return fmt.Sprint(lowest_location)
 }
