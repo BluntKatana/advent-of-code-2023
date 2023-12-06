@@ -2,6 +2,7 @@ package day6
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"regexp"
 	"strconv"
@@ -21,19 +22,13 @@ func (d Day6) Part2(filename *string) string {
 	var game_time, _ = strconv.Atoi(strings.Join(re.FindAllString(lines[0], -1), ""))
 	var distance, _ = strconv.Atoi(strings.Join(re.FindAllString(lines[1], -1), ""))
 
-	var total_combos int = 1
+	// solve the equation
+	var ds = math.Sqrt(float64(game_time*game_time - 4*distance))
 
-	var button_time = game_time/2 - 1
-	var speed = game_time / 2
+	var from = math.Floor((float64(game_time) - ds) / 2)
+	var to = math.Ceil((float64(game_time) + ds) / 2)
 
-	for button_time*speed > distance {
-		total_combos++
-		speed += 1
-		button_time -= 1
-	}
-
-	total_combos *= 2
-	total_combos -= 1
+	var total_combos = int(to) - int(from) - 1
 
 	// print the time it took to run
 	fmt.Println(time.Since(start))

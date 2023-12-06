@@ -3,7 +3,6 @@ package day6
 import (
 	"fmt"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -14,10 +13,11 @@ func (d Day6) Part1(filename *string) string {
 	content, _ := os.ReadFile(*filename)
 	lines := strings.Split(string(content), "\n")
 
-	re := regexp.MustCompile("[0-9]+")
+	var times []string = strings.Fields(strings.Trim(strings.Split(lines[0], ":")[1], " "))
+	var distances []string = strings.Fields(strings.Trim(strings.Split(lines[1], ":")[1], " "))
 
-	var times []string = re.FindAllString(lines[0], -1)
-	var distances []string = re.FindAllString(lines[1], -1)
+	fmt.Println(times)
+	fmt.Println(distances)
 
 	var total_combos int = 1
 
