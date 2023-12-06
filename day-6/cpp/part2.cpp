@@ -5,45 +5,45 @@
 
 using namespace std;
 
-// grabs the whole numbers from a string
-vector<int> parse_numbers(string line)
+// grabs the whole numbers from a string and combines them
+long parse_numbers_and_combine(string line)
 {
-    vector<int> numbers;
-    string number = "";
-    for (int i = 0; i < line.size(); i++)
+    long total = 0;
+    while (line.size() > 0)
     {
-        if (isdigit(line[i]))
+        char c = line[0];
+        line.erase(0, 1);
+        if (c >= '0' && c <= '9')
         {
-            number += line[i];
-        }
-        else
-        {
-            if (number != "")
-            {
-                numbers.push_back(stoi(number));
-                number = "";
-            }
+            total = total * 10 + (c - '0');
         }
     }
-    return numbers;
+
+    return total;
+}
+
+long solve_quadratic_equation(long time, long dist)
+{
+    long ds = sqrt(time * time - 4 * dist);
+    long from = floor((time - ds) / 2);
+    long to = ceil((time + ds) / 2);
+
+    return to - from;
 }
 
 int main()
 {
     // Initialize a vector to store the file input and set the input file name.
-    std::string fileName = "../test_part1.txt";
-    std::vector<std::string> lines = read_file(fileName);
+    string fileName = "../test_part1.txt";
+    vector<string> lines = read_file(fileName);
 
-    int scratch_total = 0;
-    vector<int> times = parse_numbers(lines[0]);
-    vector<int> distances = parse_numbers(lines[1]);
+    long time = parse_numbers_and_combine(lines[0]);
+    long distance = parse_numbers_and_combine(lines[1]);
 
-    // print the times and distances
-    for (int i = 0; i < times.size(); i++)
-    {
-        std::cout << times[i] << " " << distances[i] << std::endl;
-    }
+    cout << time << "|" << distance << endl;
+
+    long total_combo = solve_quadratic_equation(time, distance);
 
     // Print the result.
-    std::cout << "Result: " << scratch_total << std::endl;
+    std::cout << "Result: " << total_combo << std::endl;
 }

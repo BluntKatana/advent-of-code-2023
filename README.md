@@ -42,7 +42,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 |  3  | [Gear Ratios](https://adventofcode.com/2023/day/3)                           | ✅ ✅ | ✅ ✅ |
 |  4  | [Scratchcards](https://adventofcode.com/2023/day/4)                          | ✅ ✅ | ✅✅  |
 |  5  | [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5#part2) | ✅✅  |       |
-|  6  | [Wait For It](https://adventofcode.com/2023/day/6#part2)                     | ✅✅  |       |
+|  6  | [Wait For It](https://adventofcode.com/2023/day/6#part2)                     | ✅✅  | ✅✅  |
 |  7  |                                                                              |       |       |
 |  8  |                                                                              |       |       |
 |  9  |                                                                              |       |       |
