@@ -43,7 +43,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 |  4  | [Scratchcards](https://adventofcode.com/2023/day/4)                          | ✅ ✅ | ✅✅  |
 |  5  | [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5#part2) | ✅✅  |       |
 |  6  | [Wait For It](https://adventofcode.com/2023/day/6#part2)                     | ✅✅  | ✅✅  |
-|  7  |                                                                              |       |       |
+|  7  | [Camel Cards](https://adventofcode.com/2023/day/7#part2)                     |  ✅   |       |
 |  8  |                                                                              |       |       |
 |  9  |                                                                              |       |       |
 | 10  |                                                                              |       |       |
