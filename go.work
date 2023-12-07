@@ -8,4 +8,5 @@ use (
 	./day-4/go
 	./day-5/go
 	./day-6/go
+	./day-7/go
 )
