@@ -2,9 +2,7 @@
 
 Learning GO and C++ by doing the [Advent Of Code](https://adventofcode.com/2023/about) 2023. I will see how far I can get!
 
----
-
-### How to run (GO)
+## How to run (GO)
 
 For the GO solutions, you can run various days and parts by running `go run main.go` in the root dir with different flags:
 
@@ -19,19 +17,15 @@ For the GO solutions, you can run various days and parts by running `go run main
     Run day in test mode (input.txt -> test.txt)
 ```
 
----
+## How to run (C++)
 
-### How to run (C++)
-
-For the C++ solutions, you can run each day individually by going into the day folder and running the `.cpp` file with `g++`:
+For the C++ solutions, you can run each day individually by going into the `day-<num>/cpp` folder and running the `.cpp` file with `g++`:
 
 ```bash
 g++ day1.cpp -o output.out && ./output.out
 ```
 
----
-
-### Progress
+## Progress
 
 I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress.
 
