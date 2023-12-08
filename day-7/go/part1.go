@@ -11,6 +11,16 @@ import (
 
 type Day7 struct{}
 
+const (
+	FIVE_OF_A_KIND  = 7
+	FOUR_OF_A_KIND  = 6
+	FULL_HOUSE      = 5
+	THREE_OF_A_KIND = 4
+	TWO_PAIR        = 3
+	ONE_PAIR        = 2
+	HIGH_CARD       = 1
+)
+
 type CamelCard struct {
 	Card      string
 	HandType  int
@@ -67,7 +77,7 @@ func (d Day7) Part1(filename *string) string {
 		split_line := strings.Split(line, " ")
 		var card = split_line[0]
 		var bid_amount, _ = strconv.Atoi(split_line[1])
-		var hand_type int = get_camel_card_type(card)
+		var hand_type int = get_camel_card_type(card, get_counts(card))
 
 		cards = append(cards, CamelCard{Card: card, HandType: hand_type, BidAmount: bid_amount})
 	}
@@ -85,40 +95,36 @@ func (d Day7) Part1(filename *string) string {
 	return fmt.Sprint(total)
 }
 
-// for camel cards the handtype is as follows:
-// handtype 7 = five of a kind
-// handtype 6 = four of a kind
-// handtype 5 = full house
-// handtype 4 = three of a kind
-// handtype 3 = two pair
-// handtype 2 = one pair
-// handtype 1 = high card
-func get_camel_card_type(card string) int {
+func get_camel_card_type(card string, counts map[string]int) int {
+
+	// Check for five of a kind
+	if len(counts) == 1 {
+		return FIVE_OF_A_KIND
+	} else if len(counts) == 2 && (counts[string(card[0])] == 4 || counts[string(card[1])] == 4) {
+		// Check for four of a kind (either the first or second card will have 4)
+		return FOUR_OF_A_KIND
+	} else if len(counts) == 2 && (counts[string(card[0])] == 3 || counts[string(card[1])] == 3 || counts[string(card[2])] == 3) {
+		// Check for full house (either the first, second or third card will have 3)
+		return FULL_HOUSE
+	} else if len(counts) == 3 && (counts[string(card[0])] == 3 || counts[string(card[1])] == 3 || counts[string(card[2])] == 3) {
+		// Check for three of a kind (either the first, second or third card will have 3)
+		return THREE_OF_A_KIND
+	} else if len(counts) == 3 && (counts[string(card[0])] == 2 || counts[string(card[1])] == 2 || counts[string(card[2])] == 2) {
+		// Check for two pair (either the first, second or third card will have 2)
+		return TWO_PAIR
+	} else if len(counts) == 4 {
+		// Check for one pair
+		return ONE_PAIR
+	} else {
+		// All thats left over is high card
+		return HIGH_CARD
+	}
+}
+
+func get_counts(card string) map[string]int {
 	var counts map[string]int = map[string]int{}
 	for _, card := range card {
 		counts[string(card)]++
 	}
-
-	// Check for five of a kind
-	if len(counts) == 1 {
-		return 7
-	} else if len(counts) == 2 && (counts[string(card[0])] == 4 || counts[string(card[1])] == 4) {
-		// Check for four of a kind (either the first or second card will have 4)
-		return 6
-	} else if len(counts) == 2 && (counts[string(card[0])] == 3 || counts[string(card[1])] == 3 || counts[string(card[2])] == 3) {
-		// Check for full house (either the first, second or third card will have 3)
-		return 5
-	} else if len(counts) == 3 && (counts[string(card[0])] == 3 || counts[string(card[1])] == 3 || counts[string(card[2])] == 3) {
-		// Check for three of a kind (either the first, second or third card will have 3)
-		return 4
-	} else if len(counts) == 3 && (counts[string(card[0])] == 2 || counts[string(card[1])] == 2 || counts[string(card[2])] == 2) {
-		// Check for two pair (either the first, second or third card will have 2)
-		return 3
-	} else if len(counts) == 4 {
-		// Check for one pair
-		return 2
-	} else {
-		// All thats left over is high card
-		return 1
-	}
+	return counts
 }
