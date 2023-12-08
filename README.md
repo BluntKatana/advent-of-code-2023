@@ -44,7 +44,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 |  5  | [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5) | ✅ ✅ |       |
 |  6  | [Wait For It](https://adventofcode.com/2023/day/6)                     | ✅ ✅ | ✅ ✅ |
 |  7  | [Camel Cards](https://adventofcode.com/2023/day/7)                     | ✅ ✅ |       |
-|  8  | [Haunted Wasteland](https://adventofcode.com/2023/day8)                | ✅ ✅ |       |
+|  8  | [Haunted Wasteland](https://adventofcode.com/2023/day8)                | ✅ ✅ | ✅ ✅ |
 |  9  |                                                                        |       |       |
 | 10  |                                                                        |       |       |
 | 11  |                                                                        |       |       |
