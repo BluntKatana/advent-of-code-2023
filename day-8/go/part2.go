@@ -18,8 +18,6 @@ func (d Day8) Part2(filename *string) string {
 	var instructions string
 	var starting_elements []string
 
-	fmt.Println("TESTTT")
-
 	// create network in form of map
 	for idx, line := range lines {
 		if idx == 1 {
@@ -42,51 +40,72 @@ func (d Day8) Part2(filename *string) string {
 		}
 	}
 
-	fmt.Println(starting_elements)
+	var steps_to_z []int
 
-	// Start at the first element of the network
-	var steps = 0
-	var curr_elements = starting_elements
-	var instruction_idx = 0
+	// For each starting element find the number of steps to a Z
+	// and add it to the list
+	for _, starting_element := range starting_elements {
+		// Start at the first element of the network
+		var steps = 0
+		var curr_element = fmt.Sprint(starting_element)
+		var instruction_idx = 0
 
-	for !all_end_with_z(curr_elements) {
-		var new_elements []string
-		var curr_direction = instructions[instruction_idx]
+		// Keep going until we reach a Z
+		for curr_element[len(curr_element)-1] != 'Z' {
+			var directions = network[curr_element]
+			var curr_direction = instructions[instruction_idx]
 
-		// loop through all elements and update them
-		for _, element := range curr_elements {
-			var directions = network[element]
+			// Choose a direction
 			if string(curr_direction) == "L" {
-				new_elements = append(new_elements, directions.Left)
+				curr_element = directions.Left
 			} else {
-				new_elements = append(new_elements, directions.Right)
+				curr_element = directions.Right
 			}
+
+			// Make sure the instruction index doesn't go out of bounds
+			if instruction_idx == len(instructions)-1 {
+				instruction_idx = 0
+			} else {
+				instruction_idx++
+			}
+
+			// Increment the number of steps
+			steps++
 		}
 
-		// update curr_elements
-		curr_elements = new_elements
-
-		// update curr_elements and steps
-		if instruction_idx == len(instructions)-1 {
-			instruction_idx = 0
-		} else {
-			instruction_idx++
-		}
-		steps++
-
-		fmt.Println(steps, curr_elements)
+		steps_to_z = append(steps_to_z, steps)
 	}
+
+	// To find the number of steps to Z where all the starting numbers
+	// have the same number of steps to Z, we need to find the LCM of
+	// all the steps to Z
+	var steps = LCM(steps_to_z[0], steps_to_z[1], steps_to_z[2:]...)
 
 	fmt.Println(time.Since(start))
 	return fmt.Sprint(steps)
 }
 
-// check if a list of strings all end with a Z
-func all_end_with_z(list []string) bool {
-	for _, element := range list {
-		if element[len(element)-1] != 'Z' {
-			return false
-		}
+/**
+ * The following two functions are taken from the GO.dev website
+ * https://go.dev/play/p/SmzvkDjYlb
+ */
+// greatest common divisor (GCD) via Euclidean algorithm
+func GCD(a, b int) int {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
 	}
-	return true
+	return a
+}
+
+// find Least Common Multiple (LCM) via GCD
+func LCM(a, b int, integers ...int) int {
+	result := a * b / GCD(a, b)
+
+	for i := 0; i < len(integers); i++ {
+		result = LCM(result, integers[i])
+	}
+
+	return result
 }
