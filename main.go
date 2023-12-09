@@ -3,6 +3,7 @@ package main
 // Import packages and all the day modules
 import (
 	"day1"
+	"day10"
 	"day2"
 	"day3"
 	"day4"
@@ -28,6 +29,7 @@ var days = map[int]Day{
 	1: day1.Day1{}, 2: day2.Day2{}, 3: day3.Day3{},
 	4: day4.Day4{}, 5: day5.Day5{}, 6: day6.Day6{},
 	7: day7.Day7{}, 8: day8.Day8{}, 9: day9.Day9{},
+	10: day10.Day10{},
 }
 
 // Main function
@@ -123,7 +125,7 @@ func log_to_file(str string, suffix string) {
 	file_name := "go_log.txt"
 
 	// Add current date and suffix to log file name
-	total_str := "#" + suffix + " | " + time.Now().Format("2006-01-02") + " | " + str
+	total_str := "#" + suffix + " | " + time.Now().Format("2006-01-02 15:04:05") + " | " + str
 
 	// Add string attempt to log file with timestamp
 	f, err := os.OpenFile(file_name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

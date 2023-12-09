@@ -3,6 +3,7 @@ go 1.21.2
 use (
 	.
 	./day-1/go
+	./day-10/go
 	./day-2/go
 	./day-3/go
 	./day-4/go
