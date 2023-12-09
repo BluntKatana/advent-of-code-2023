@@ -3,6 +3,7 @@ package day9
 import (
 	"fmt"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -16,7 +17,7 @@ func (h *History) CalculateFirstPrediction() int {
 	// Keep a list of the differences between the numbers
 	var curr_diffs []int = h.Numbers
 	var depth = 0
-	for !AllZeros(curr_diffs) {
+	for !slices.ContainsFunc(curr_diffs, func(num int) bool { return num != 0 }) {
 		var temp_diffs []int = []int{}
 
 		for i := 0; i < len(curr_diffs)-1; i++ {
