@@ -14,7 +14,8 @@ type History struct {
 	Numbers []int
 }
 
-func (h *History) CalculatePrediction() int {
+// Calculate the last value in the history
+func (h *History) CalculateLastPrediction() int {
 	// Keep a list of the last number for a list of diffs
 	var last_nums []int = []int{}
 
@@ -25,6 +26,7 @@ func (h *History) CalculatePrediction() int {
 		var temp_diffs []int = []int{}
 
 		for i := 0; i < len(curr_diffs)-1; i++ {
+			// calc diffs from left to righ
 			var diff = curr_diffs[i+1] - curr_diffs[i]
 			temp_diffs = append(temp_diffs, diff)
 		}
@@ -46,6 +48,7 @@ func (h *History) CalculatePrediction() int {
 		prediction += last_nums[i]
 	}
 
+	// Return the prediction + the last number
 	return prediction + h.Numbers[len(h.Numbers)-1]
 }
 
@@ -83,7 +86,7 @@ func (d Day9) Part1(filename *string) string {
 		}
 
 		// Calculate the prediction
-		total += history.CalculatePrediction()
+		total += history.CalculateLastPrediction()
 	}
 
 	fmt.Println(time.Since(start))
