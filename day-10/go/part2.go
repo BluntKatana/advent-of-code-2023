@@ -232,7 +232,7 @@ func (d Day10) Part2(filename *string) string {
 	}
 
 	var enclosedTiles = 0
-	var lastSeenRune rune = ' '
+	var lastInLoopTile = Tile{}
 	for y := 0; y < len(tiles); y++ {
 		var walls int = 0
 		for x := 0; x < len(tiles[0]); x++ {
@@ -252,15 +252,15 @@ func (d Day10) Part2(filename *string) string {
 					walls += 1
 				}
 
-				if tile.char == 'J' && lastSeenRune == 'F' {
+				if tile.char == 'J' && lastInLoopTile.char == 'F' {
 					walls += 1
 				}
 
-				if tile.char == '7' && lastSeenRune == 'L' {
+				if tile.char == '7' && lastInLoopTile.char == 'L' {
 					walls += 1
 				}
 
-				lastSeenRune = tile.char
+				lastInLoopTile = tile
 
 				continue
 			}
