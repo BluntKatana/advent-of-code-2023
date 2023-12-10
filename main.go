@@ -122,7 +122,7 @@ func log_to_file(str string, suffix string) {
 	fmt.Print(str)
 
 	// Create log file or open existing one
-	file_name := "go_log.txt"
+	file_name := "go.log"
 
 	// Add current date and suffix to log file name
 	total_str := "#" + suffix + " | " + time.Now().Format("2006-01-02 15:04:05") + " | " + str
