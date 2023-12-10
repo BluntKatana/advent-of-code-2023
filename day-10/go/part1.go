@@ -22,19 +22,6 @@ func (t Tile) Print() {
 	fmt.Printf("Char: %c | X: %d | Y: %d\n", t.char, t.x, t.y)
 }
 
-func PrintTiles(tiles [][]Tile, currTile Tile) {
-	for _, line := range tiles {
-		for _, tile := range line {
-			if tile.x == currTile.x && tile.y == currTile.y {
-				fmt.Printf("O")
-				continue
-			}
-			fmt.Printf("%c", tile.char)
-		}
-		fmt.Println()
-	}
-}
-
 type Day10 struct{}
 
 func (d Day10) Part1(filename *string) string {

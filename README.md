@@ -40,7 +40,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 |  7  | [Camel Cards](https://adventofcode.com/2023/day/7)                     | ✅ ✅ |       |
 |  8  | [Haunted Wasteland](https://adventofcode.com/2023/day/8)               | ✅ ✅ | ✅ ✅ |
 |  9  | [Mirage Maintenance](https://adventofcode.com/2023/day/9)              | ✅ ✅ |       |
-| 10  |                                                                        |       |       |
+| 10  | [Pipe Maze](https://adventofcode.com/2023/day/10)                      | ✅ ✅ |       |
 | 11  |                                                                        |       |       |
 | 12  |                                                                        |       |       |
 | 13  |                                                                        |       |       |
