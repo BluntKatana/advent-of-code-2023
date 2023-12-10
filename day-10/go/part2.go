@@ -8,196 +8,270 @@ import (
 	"time"
 )
 
-func (t Tile) Str() string {
-	return fmt.Sprintf("(Char: %c | X: %d | Y: %d)", t.char, t.x, t.y)
-}
-
-type Point struct {
-	x, y int
-}
-
-type TileGrid [][]rune
-
-func (t TileGrid) FindStart() Point {
-	for y := 0; y < len(t); y++ {
-		for x := 0; x < len(t[0]); x++ {
-			if t[y][x] == 'S' {
-				return Point{x, y}
-			}
-		}
-	}
-
-	return Point{-1, -1}
-}
-
-func (t TileGrid) Print(tiles ...Point) {
-	for y, line := range t {
-		for x, tile := range line {
-			var found = false
-			for _, p := range tiles {
-				if p.x == x && p.y == y {
-					found = true
-					break
-				}
-			}
-
-			if found {
-				fmt.Printf("\033[1;31m%c\033[0m", tile)
-				continue
-			} else {
-				fmt.Printf("%c", tile)
-			}
-		}
-		fmt.Println()
-	}
-}
-
-const (
-	UP    = 0
-	RIGHT = 1
-	DOWN  = 2
-	LEFT  = 3
-)
-
-func (t TileGrid) NextDir(p Point, dir int) int {
-	var char = t[p.y][p.x]
-
-	// Check which direction we're going
-	switch char {
-	case '|':
-		return dir
-	case '-':
-		return dir
-	case 'S':
-		return dir
-	// F: Coming from the right => go down, coming from down => go right
-	case 'F':
-		if dir == LEFT {
-			return DOWN
-		}
-		if dir == UP {
-			return RIGHT
-		}
-	// 7: Coming from the left => go down, coming from down => go left
-	case '7':
-		if dir == RIGHT {
-			return DOWN
-		}
-		if dir == UP {
-			return LEFT
-		}
-	// J: Coming from the left => go up, coming from up => go left
-	case 'J':
-		if dir == RIGHT {
-			return UP
-		}
-		if dir == DOWN {
-			return LEFT
-		}
-	case 'L':
-		// L: Coming from the top => go right, coming from right => go up
-		if dir == DOWN {
-			return RIGHT
-		}
-		if dir == LEFT {
-			return UP
-		}
-	}
-	// fmt.Println("UNKNOWN CHAR", string(char))
-	return -1
-}
-
 func (d Day10) Part2(filename *string) string {
 	var start = time.Now()
 
 	var content, _ = os.ReadFile(*filename)
 	var lines = strings.Split(string(content), "\n")
 
-	var tileGrid = TileGrid{}
+	var tiles [][]Tile = [][]Tile{}
+	var startTile Tile
 
 	// Parse the tiles into a 2D array
 	for y, line := range lines {
-		for _, char := range line {
-			if len(tileGrid) <= y {
-				tileGrid = append(tileGrid, []rune{})
-			}
+		var parsedTiles []Tile = []Tile{}
+		for x, char := range line {
+			parsedTiles = append(parsedTiles, Tile{char, x, y})
 
-			tileGrid[y] = append(tileGrid[y], char)
+			if char == 'S' {
+				startTile = Tile{char, x, y}
+			}
 		}
+		tiles = append(tiles, parsedTiles)
 	}
 
-	var startPoint = tileGrid.FindStart()
-	var loopTiles []Point = []Point{}
+	var startingDirs = []Direction{
+		{startTile.x, startTile.y - 1},
+		{startTile.x, startTile.y + 1},
+		{startTile.x + 1, startTile.y},
+		{startTile.x - 1, startTile.y},
+	}
 
-	var currPoint = startPoint
-	var currDir int = LEFT
+	// Keep track of the current steps
+	var tilesInLoop []Tile = []Tile{startTile}
+	var foundLoop = false
 
-	for {
-		// fmt.Println("BEFORE", currPoint, currDir)
-		loopTiles = append(loopTiles, currPoint)
-
-		currDir = tileGrid.NextDir(currPoint, currDir)
-
-		switch currDir {
-		case UP:
-			currPoint.y -= 1
-		case DOWN:
-			currPoint.y += 1
-		case RIGHT:
-			currPoint.x += 1
-		case LEFT:
-			currPoint.x -= 1
-		}
-
-		// fmt.Println("AFTER", currPoint, currDir)
-
-		if tileGrid[currPoint.y][currPoint.x] == 'S' {
+	// For each directions starting at the starting tile
+	for _, dir := range startingDirs {
+		if foundLoop {
 			break
 		}
 
-	}
+		// Check if we are out of bounds
+		if dir.x < 0 || dir.x >= len(tiles[0]) || dir.y < 0 || dir.y >= len(tiles) {
+			continue
+		}
 
-	var enclosedPoints []Point = []Point{}
-	var lastSeenRune rune = ' '
-	for y := 0; y < len(tileGrid); y++ {
-		var walls int = 0
-		for x := 0; x < len(tileGrid[0]); x++ {
-			// Check if point is part of the loop
-			if slices.ContainsFunc(loopTiles, func(p Point) bool { return p.x == x && p.y == y }) {
-				char := tileGrid[y][x]
+		// Keep track of the current and previous tile
+		// (in order to know what way we came from)
+		var prevTile = startTile
+		var currTile = tiles[dir.y][dir.x]
 
-				if char == '-' {
+		// If we find a ground tile this direction is not valid
+		if currTile.char == '.' {
+			continue
+		}
+
+		// Keep looping until we find the startTile again (S)
+		for currTile.char != 'S' {
+			// If we find a ground tile this direction is not valid
+			if currTile.char == '.' {
+				break
+			}
+
+			tilesInLoop = append(tilesInLoop, currTile)
+			// If we find a | or - tile we need to keep going in the same direction
+			if currTile.char == '|' || currTile.char == '-' {
+				// If we came from the left we go right
+				if prevTile.x == currTile.x-1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.x+1 >= len(tiles[0]) {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y][currTile.x+1]
 					continue
 				}
 
-				if char == '|' {
+				// If we came from the right we go left
+				if prevTile.x == currTile.x+1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.x-1 < 0 {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y][currTile.x-1]
+					continue
+				}
+
+				// If we came from the top we go down
+				if prevTile.y == currTile.y-1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.y+1 >= len(tiles) {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y+1][currTile.x]
+					continue
+				}
+
+				// If we came from the bottom we go up
+				if prevTile.y == currTile.y+1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.y-1 < 0 {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y-1][currTile.x]
+					continue
+				}
+			}
+
+			// If we find a L tile we need to go to the top or right
+			if currTile.char == 'L' {
+				// If we came from the right we go up
+				if prevTile.x == currTile.x+1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.y-1 < 0 {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y-1][currTile.x]
+					continue
+				}
+
+				// If we came from the top we go right
+				if prevTile.y == currTile.y-1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.x+1 >= len(tiles[0]) {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y][currTile.x+1]
+					continue
+				}
+			}
+
+			// If we find a F tile we need to go to the bottom or right
+			if currTile.char == 'F' {
+				// If we came from the right we go down
+				if prevTile.x == currTile.x+1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.y+1 >= len(tiles) {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y+1][currTile.x]
+					continue
+				}
+
+				// If we came from the bottom we go right
+				if prevTile.y == currTile.y+1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.x+1 >= len(tiles[0]) {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y][currTile.x+1]
+					continue
+				}
+			}
+
+			// If we find a 7 tile we need to go to the left or bottom
+			if currTile.char == '7' {
+				// If we came from the left we go down
+				if prevTile.x == currTile.x-1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.y+1 >= len(tiles) {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y+1][currTile.x]
+					continue
+				}
+
+				// If we came from the bottom we go left
+				if prevTile.y == currTile.y+1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.x-1 < 0 {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y][currTile.x-1]
+					continue
+				}
+			}
+
+			// If we find a J tile we need to go to the left or top
+			if currTile.char == 'J' {
+				// If we came from the left we go up
+				if prevTile.x == currTile.x-1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.y-1 < 0 {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y-1][currTile.x]
+					continue
+				}
+
+				// If we came from the top we go left
+				if prevTile.y == currTile.y-1 {
+					// Make sure we do not go out of bounds, if so this direction is not valid
+					if currTile.x-1 < 0 {
+						break
+					}
+					prevTile = currTile
+					currTile = tiles[currTile.y][currTile.x-1]
+					continue
+				}
+			}
+
+			// If we do not find any of the above tiles we have found a loop
+			// and we can break out of the loop
+			break
+		}
+
+		// If we found the startTile we have found a loop
+		if currTile.char == 'S' {
+			foundLoop = true
+			break
+		} else {
+			tilesInLoop = []Tile{startTile}
+		}
+	}
+
+	var enclosedTiles = 0
+	var lastSeenRune rune = ' '
+	for y := 0; y < len(tiles); y++ {
+		var walls int = 0
+		for x := 0; x < len(tiles[0]); x++ {
+			// Check if point is part of the loop
+			if slices.ContainsFunc(tilesInLoop, func(p Tile) bool { return p.x == x && p.y == y }) {
+				tile := tiles[y][x]
+
+				if tile.char == '-' {
+					continue
+				}
+
+				if tile.char == '|' {
 					walls += 1
 				}
 
-				if char == 'S' {
+				if tile.char == 'S' {
 					walls += 1
 				}
 
-				if char == 'J' && lastSeenRune == 'F' {
+				if tile.char == 'J' && lastSeenRune == 'F' {
 					walls += 1
 				}
 
-				if char == '7' && lastSeenRune == 'L' {
+				if tile.char == '7' && lastSeenRune == 'L' {
 					walls += 1
 				}
 
-				lastSeenRune = char
+				lastSeenRune = tile.char
 
 				continue
 			}
 
 			// If there are an odd number of walls, the tile is enclosed
 			if walls%2 != 0 {
-				enclosedPoints = append(enclosedPoints, Point{x, y})
+				enclosedTiles += 1
 			}
 		}
 	}
 
 	fmt.Println(time.Since(start))
-	return fmt.Sprint(len(enclosedPoints))
+	return fmt.Sprint(enclosedTiles)
 }
