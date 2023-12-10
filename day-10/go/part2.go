@@ -262,10 +262,14 @@ func (d Day10) Part2(filename *string) string {
 		PrintRow(row, "Full row")
 		// Grab the tiles which are in the loop in this row
 		var tilesInLoopInRow []Tile = []Tile{}
+		var tilesInLoopInRowNoMinus []Tile = []Tile{}
 		for _, tile := range row {
 			for _, tileInLoop := range tilesInLoop {
-				if tile.x == tileInLoop.x && tile.y == tileInLoop.y && tile.char != '-' {
+				if tile.x == tileInLoop.x && tile.y == tileInLoop.y {
 					tilesInLoopInRow = append(tilesInLoopInRow, tile)
+					if tile.char != '-' {
+						tilesInLoopInRowNoMinus = append(tilesInLoopInRowNoMinus, tile)
+					}
 				}
 			}
 		}
@@ -281,32 +285,19 @@ func (d Day10) Part2(filename *string) string {
 		var enclosedTilesInRow int = 0
 
 		// Loop through every tile in the loop which is in this row
-		for i := 0; i < len(tilesInLoopInRow); i++ {
-			var tileFrom Tile = tilesInLoopInRow[i]
+		for i := 0; i < len(tilesInLoopInRowNoMinus)-1; i++ {
+			var tileFrom Tile = tilesInLoopInRowNoMinus[i]
 			var tileFromIdx = i
 
-			// Loop through every tile in the loop which is in this row after the file to check from
-			for j := i + 1; j < len(tilesInLoopInRow); j++ {
-				var tileInLoop = tilesInLoopInRow[j]
-
-				// Check if the tile is 1 tile to the right of the tile to check
-				if tileInLoop.x == tileFrom.x+1 && tileInLoop.char != '|' {
-					tileFrom = tileInLoop
-					tileFromIdx = j
-				} else {
-					// If not we have found the tile which we start to count from
-					break
-				}
-			}
-
 			// Check if there is a tile next to the tile to check
-			if tileFromIdx+1 >= len(tilesInLoopInRow) {
+			if tileFromIdx+1 >= len(tilesInLoopInRowNoMinus) {
 				break
 			}
 
+			var tileTo Tile = tilesInLoopInRowNoMinus[i+1]
+			var tileToIdx = i + 1
+
 			// Add the amount of tiles between the tile to check and the next tile
-			var tileToIdx = tileFromIdx + 1
-			var tileTo = tilesInLoopInRow[tileToIdx]
 			var enclosedTileAmount = tileTo.x - tileFrom.x - 1
 
 			enclosedTilesInRow += enclosedTileAmount
@@ -319,7 +310,7 @@ func (d Day10) Part2(filename *string) string {
 			fmt.Println("Tile to check from:", tileFrom.Str(), "to", tileTo.Str(), "tiles between:", enclosedTileAmount, "index:", tileFromIdx)
 
 			// Set the next index (i) to the index of the next tile
-			i = tileToIdx + 1
+			i = tileToIdx
 		}
 
 		// If the amount of tiles enclosed in this row is odd we add it to the total
