@@ -57,18 +57,8 @@ func (d Day10) Part2(filename *string) string {
 		var prevTile = startTile
 		var currTile = tiles[dir.y][dir.x]
 
-		// If we find a ground tile this direction is not valid
-		if currTile.char == '.' {
-			continue
-		}
-
 		// Keep looping until we find the startTile again (S)
 		for currTile.char != 'S' {
-			// If we find a ground tile this direction is not valid
-			if currTile.char == '.' {
-				break
-			}
-
 			tilesInLoop = append(tilesInLoop, currTile)
 			// If we find a | or - tile we need to keep going in the same direction
 			if currTile.char == '|' || currTile.char == '-' {
