@@ -29,30 +29,30 @@ g++ day1.cpp -o output.out && ./output.out
 
 I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress.
 
-| Day | Title                                                                  |  Go   |  C++  |
-| :-: | ---------------------------------------------------------------------- | :---: | :---: |
-|  1  | [Trebuchet?!](https://adventofcode.com/2023/day/1)                     | ✅ ✅ | ✅ ✅ |
-|  2  | [Cube Conundrum](https://adventofcode.com/2023/day/2)                  | ✅ ✅ | ✅ ✅ |
-|  3  | [Gear Ratios](https://adventofcode.com/2023/day/3)                     | ✅ ✅ | ✅ ✅ |
-|  4  | [Scratchcards](https://adventofcode.com/2023/day/4)                    | ✅ ✅ | ✅ ✅ |
-|  5  | [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5) | ✅ ✅ |       |
-|  6  | [Wait For It](https://adventofcode.com/2023/day/6)                     | ✅ ✅ | ✅ ✅ |
-|  7  | [Camel Cards](https://adventofcode.com/2023/day/7)                     | ✅ ✅ |       |
-|  8  | [Haunted Wasteland](https://adventofcode.com/2023/day/8)               | ✅ ✅ | ✅ ✅ |
-|  9  | [Mirage Maintenance](https://adventofcode.com/2023/day/9)              | ✅ ✅ |       |
-| 10  | [Pipe Maze](https://adventofcode.com/2023/day/10)                      | ✅ ✅ |       |
-| 11  |                                                                        |       |       |
-| 12  |                                                                        |       |       |
-| 13  |                                                                        |       |       |
-| 14  |                                                                        |       |       |
-| 15  |                                                                        |       |       |
-| 16  |                                                                        |       |       |
-| 17  |                                                                        |       |       |
-| 18  |                                                                        |       |       |
-| 19  |                                                                        |       |       |
-| 20  |                                                                        |       |       |
-| 21  |                                                                        |       |       |
-| 22  |                                                                        |       |       |
-| 23  |                                                                        |       |       |
-| 24  |                                                                        |       |       |
-| 25  |                                                                        |       |       |
+| Day | Title                                                                  |   Go    |   C++   |
+| :-: | ---------------------------------------------------------------------- | :-----: | :-----: |
+|  1  | [Trebuchet?!](https://adventofcode.com/2023/day/1)                     | ⭐️ ⭐️ | ⭐️ ⭐️ |
+|  2  | [Cube Conundrum](https://adventofcode.com/2023/day/2)                  | ⭐️ ⭐️ | ⭐️ ⭐️ |
+|  3  | [Gear Ratios](https://adventofcode.com/2023/day/3)                     | ⭐️ ⭐️ | ⭐️ ⭐️ |
+|  4  | [Scratchcards](https://adventofcode.com/2023/day/4)                    | ⭐️ ⭐️ | ⭐️ ⭐️ |
+|  5  | [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5) | ⭐️ ⭐️ |         |
+|  6  | [Wait For It](https://adventofcode.com/2023/day/6)                     | ⭐️ ⭐️ | ⭐️ ⭐️ |
+|  7  | [Camel Cards](https://adventofcode.com/2023/day/7)                     | ⭐️ ⭐️ |         |
+|  8  | [Haunted Wasteland](https://adventofcode.com/2023/day/8)               | ⭐️ ⭐️ | ⭐️ ⭐️ |
+|  9  | [Mirage Maintenance](https://adventofcode.com/2023/day/9)              | ⭐️ ⭐️ |         |
+| 10  | [Pipe Maze](https://adventofcode.com/2023/day/10)                      | ⭐️ ⭐️ |         |
+| 11  | [Cosmic Expansion](https://www.youtube.com/watch?v=qNEeGCxVewc)        |         |         |
+| 12  |                                                                        |         |         |
+| 13  |                                                                        |         |         |
+| 14  |                                                                        |         |         |
+| 15  |                                                                        |         |         |
+| 16  |                                                                        |         |         |
+| 17  |                                                                        |         |         |
+| 18  |                                                                        |         |         |
+| 19  |                                                                        |         |         |
+| 20  |                                                                        |         |         |
+| 21  |                                                                        |         |         |
+| 22  |                                                                        |         |         |
+| 23  |                                                                        |         |         |
+| 24  |                                                                        |         |         |
+| 25  |                                                                        |         |         |
