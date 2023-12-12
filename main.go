@@ -5,6 +5,7 @@ import (
 	"day1"
 	"day10"
 	"day11"
+	"day12"
 	"day2"
 	"day3"
 	"day4"
@@ -30,7 +31,7 @@ var days = map[int]Day{
 	1: day1.Day1{}, 2: day2.Day2{}, 3: day3.Day3{},
 	4: day4.Day4{}, 5: day5.Day5{}, 6: day6.Day6{},
 	7: day7.Day7{}, 8: day8.Day8{}, 9: day9.Day9{},
-	10: day10.Day10{}, 11: day11.Day11{},
+	10: day10.Day10{}, 11: day11.Day11{}, 12: day12.Day12{},
 }
 
 // Main function
@@ -147,8 +148,16 @@ func log_to_file(str string, suffix string) {
 
 // Create filename based on day, part and test mode
 func create_filename(day *int, part *int, test_mode *bool) string {
-	// Create filename
-	filename := "./day-" + fmt.Sprintf("%d", *day) + "/input.txt"
+	// Create filename (01 -> 25)
+
+	var filename string
+
+	// Make sure day is always 2 digits
+	if *day < 10 {
+		filename = "./day-" + fmt.Sprintf("0%d", *day) + "/input.txt"
+	} else {
+		filename = "./day-" + fmt.Sprintf("%d", *day) + "/input.txt"
+	}
 
 	if !*test_mode {
 		return filename

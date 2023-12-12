@@ -2,16 +2,16 @@ go 1.21.2
 
 use (
 	.
-	./day-1/go
+	./day-01/go
+	./day-02/go
+	./day-03/go
+	./day-04/go
+	./day-05/go
+	./day-06/go
+	./day-07/go
+	./day-08/go
+	./day-09/go
 	./day-10/go
 	./day-11/go
 	./day-12/go
-	./day-2/go
-	./day-3/go
-	./day-4/go
-	./day-5/go
-	./day-6/go
-	./day-7/go
-	./day-8/go
-	./day-9/go
 )
