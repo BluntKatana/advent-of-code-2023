@@ -40,48 +40,38 @@ func (d Day12) Part1(filename *string) string {
 }
 
 func Arrangements(recordIdx, groupIdx int, record string, groups []int) int {
+	fmt.Println(recordIdx, groupIdx, record, groups)
+
 	// If we reach the end of the record
 	if recordIdx >= len(record) {
-		// ...and we are not at the end of the groups
-		if groupIdx < len(groups) {
-			return 0
+		// ...and we do not have a group to check left
+		if groupIdx == len(groups) {
+			// ...it is a correct arrangement
+			return 1
 		}
-		// ...and we are at the end of the groups
-		return 1
+		return 0
 	}
 
 	total := 0
 
-	// If we encounter an OPERATIONAL spring we move to the next record and return
+	// If we encounter an OPERATIONAL spring we move to the next record and return the total
 	if record[recordIdx] == '.' {
 		total += Arrangements(recordIdx+1, groupIdx, record, groups)
 		return total
 	}
 
-	// If we encounter an UNKNOWN spring we try both
-	// - skipping this record, as if it were not broken
-	// - continuing with this record, as if it were BROKEN
-	if record[recordIdx] == '?' {
-		total += Arrangements(recordIdx+1, groupIdx, record, groups)
-	}
-
-	// Check boundary for groups
+	// If we encounter a BROKEN or UNKNOWN spring
 	if groupIdx < len(groups) {
-		// check if the current group fits starting from now
+		// check if the current group is correct starting from now
 		count := 0
 		for nextRecordIdx := recordIdx; nextRecordIdx < len(record); nextRecordIdx++ {
-			// stop counting when we encounter an OPERATIONAL spring
-			if record[nextRecordIdx] == '.' {
-				break
-			}
-
-			// stop counting when the count exceeds the current group
-			if count > groups[groupIdx] {
-				break
-			}
-
-			// stop counting when we encounter an UNKOWN spring and we are at the count of the current group
-			if record[nextRecordIdx] == '?' && count == groups[groupIdx] {
+			// we stop count when
+			// - we encounter an OPERATIONAL spring
+			// - the count exceeds the current group
+			// - we encounter an UNKNOWN spring but are at the groups count
+			if record[nextRecordIdx] == '.' ||
+				count > groups[groupIdx] ||
+				record[nextRecordIdx] == '?' && count == groups[groupIdx] {
 				break
 			}
 
@@ -89,17 +79,22 @@ func Arrangements(recordIdx, groupIdx int, record string, groups []int) int {
 			count++
 		}
 
-		// if the count is equal to the length of the current group
+		// if the count is equal to the current group
 		if count == groups[groupIdx] {
-			// ... and the next record is not a BROKEN spring
+			// ... and the next record after the count is not a BROKEN spring
 			if recordIdx+count < len(record) && record[recordIdx+count] != '#' {
-				// ... we jump to the next NOT BROKEN record and group
+				// ... we jump to the next spring and leave a gap (hence the +1)
 				total += Arrangements(recordIdx+count+1, groupIdx+1, record, groups)
 			} else {
 				// ... we jump to the next record and group
 				total += Arrangements(recordIdx+count, groupIdx+1, record, groups)
 			}
 		}
+	}
+
+	// In addition, we also have to account for skipping an UNKNOWN spring
+	if record[recordIdx] == '?' {
+		total += Arrangements(recordIdx+1, groupIdx, record, groups)
 	}
 
 	return total

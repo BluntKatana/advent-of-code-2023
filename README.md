@@ -10,7 +10,7 @@ For the GO solutions, you can run various days and parts by running `go run main
 -all
     Run all days
 -day int
-    Day to run (between 1 and 31) (default -1)
+    Day to run (between 1 and 25) (default -1)
 -part int
     Part to run (1 or 2) (default -1)
 -test
@@ -27,7 +27,7 @@ g++ day1.cpp -o output.out && ./output.out
 
 ## Progress
 
-I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress.
+I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress. A ⭐️ represents a fully completed part without any help, ✨ means a part with some idea help (no code) from reddit.
 
 | Day | Title                                                                  |   Go    |   C++   |
 | :-: | ---------------------------------------------------------------------- | :-----: | :-----: |
@@ -41,8 +41,8 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 |  8  | [Haunted Wasteland](https://adventofcode.com/2023/day/8)               | ⭐️ ⭐️ | ⭐️ ⭐️ |
 |  9  | [Mirage Maintenance](https://adventofcode.com/2023/day/9)              | ⭐️ ⭐️ |         |
 | 10  | [Pipe Maze](https://adventofcode.com/2023/day/10)                      | ⭐️ ⭐️ |         |
-| 11  | [Cosmic Expansion](https://www.youtube.com/watch?v=qNEeGCxVewc)        |         |         |
-| 12  |                                                                        |         |         |
+| 11  | [Cosmic Expansion](https://www.youtube.com/watch?v=qNEeGCxVewc)        | ⭐️ ⭐️ |         |
+| 12  | [???]()                                                                | ✨ ⭐️  |         |
 | 13  |                                                                        |         |         |
 | 14  |                                                                        |         |         |
 | 15  |                                                                        |         |         |
