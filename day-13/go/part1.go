@@ -27,15 +27,11 @@ func (s Pattern) GetColumnString(col int) string {
 	return column
 }
 
-func (s Pattern) FindVerticalReflection() (bool, int) {
-	// Check for vertical reflections between the pivot points
-	var checkLeft = 0
-	var checkRight = 1
-
-	for checkLeft < len(s[0])-1 && checkRight < len(s[0]) {
+func (s Pattern) FindVerticalReflection() int {
+	for pivot := 0; pivot < len(s[0])-1; pivot++ {
 		// Check if the pivot points are the same
-		var pivotLeft = checkLeft
-		var pivotRight = checkRight
+		var pivotLeft = pivot
+		var pivotRight = pivot + 1
 		var areEqual = true
 
 		// Continue to check if the columns are the same
@@ -53,26 +49,18 @@ func (s Pattern) FindVerticalReflection() (bool, int) {
 		}
 
 		if areEqual {
-			return true, checkLeft
+			return pivot + 1
 		}
-
-		// Update the checkLeft and checkRight
-		checkLeft++
-		checkRight++
 	}
 
-	return false, -1
+	return 0
 }
 
-func (s Pattern) FindHorizontalReflection() (bool, int) {
-	// Check for horizontal reflections between the pivot points
-	var checkTop = 0
-	var checkBottom = 1
-
-	for checkTop < len(s)-1 && checkBottom < len(s) {
+func (s Pattern) FindHorizontalReflection() int {
+	for pivot := 0; pivot < len(s)-1; pivot++ {
 		// Check if the pivot points are the same
-		var pivotTop = checkTop
-		var pivotBottom = checkBottom
+		var pivotTop = pivot
+		var pivotBottom = pivot + 1
 		var areEqual = true
 
 		// Continue to check if the rows are the same
@@ -87,15 +75,11 @@ func (s Pattern) FindHorizontalReflection() (bool, int) {
 		}
 
 		if areEqual {
-			return true, checkTop
+			return pivot + 1
 		}
-
-		// Update the checkLeft and checkRight
-		checkTop++
-		checkBottom++
 	}
 
-	return false, -1
+	return 0
 }
 
 func (d Day13) Part1(filename *string) string {
@@ -114,18 +98,10 @@ func (d Day13) Part1(filename *string) string {
 			fmt.Println()
 			patternObj.String()
 			fmt.Println()
-			var foundRow, rowNum = patternObj.FindHorizontalReflection()
-			var foundCol, colNum = patternObj.FindVerticalReflection()
+			var row = patternObj.FindHorizontalReflection()
+			var col = patternObj.FindVerticalReflection()
 
-			if foundRow {
-				fmt.Println("FOUND ROW", rowNum+1)
-				sum += (rowNum + 1) * 100
-			}
-
-			if foundCol {
-				fmt.Println("FOUND COL", colNum+1)
-				sum += colNum + 1
-			}
+			sum += (row * 100) + col
 
 			pattern = []string{}
 
