@@ -30,8 +30,7 @@ func (s Pattern) GetColumnString(col int) string {
 func (s Pattern) FindVerticalReflection() int {
 	for pivot := 0; pivot < len(s[0])-1; pivot++ {
 		// Check if the pivot points are the same
-		var pivotLeft = pivot
-		var pivotRight = pivot + 1
+		var pivotLeft, pivotRight = pivot, pivot + 1
 		var areEqual = true
 
 		// Continue to check if the columns are the same
@@ -58,9 +57,7 @@ func (s Pattern) FindVerticalReflection() int {
 
 func (s Pattern) FindHorizontalReflection() int {
 	for pivot := 0; pivot < len(s)-1; pivot++ {
-		// Check if the pivot points are the same
-		var pivotTop = pivot
-		var pivotBottom = pivot + 1
+		var pivotTop, pivotBottom = pivot, pivot + 1
 		var areEqual = true
 
 		// Continue to check if the rows are the same
@@ -93,11 +90,8 @@ func (d Day13) Part1(filename *string) string {
 
 	for lineIdx, line := range lines {
 		if line == "" || lineIdx == len(lines)-1 {
-			// Check for reflections
 			var patternObj = Pattern(pattern)
-			fmt.Println()
-			patternObj.String()
-			fmt.Println()
+
 			var row = patternObj.FindHorizontalReflection()
 			var col = patternObj.FindVerticalReflection()
 
