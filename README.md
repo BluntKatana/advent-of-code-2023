@@ -42,8 +42,8 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 |  9  | [Mirage Maintenance](https://adventofcode.com/2023/day/9)              | ⭐️ ⭐️ |         |
 | 10  | [Pipe Maze](https://adventofcode.com/2023/day/10)                      | ⭐️ ⭐️ |         |
 | 11  | [Cosmic Expansion](https://www.youtube.com/watch?v=qNEeGCxVewc)        | ⭐️ ⭐️ |         |
-| 12  | [???]()                                                                | ✨ ⭐️  |         |
-| 13  |                                                                        |         |         |
+| 12  | [Hot Springs](https://adventofcode.com/2023/day/12)                    | ✨ ⭐️  |         |
+| 13  | [Point of Incidence](https://adventofcode.com/2023/day/13)             | ⭐️ ⭐️ |         |
 | 14  |                                                                        |         |         |
 | 15  |                                                                        |         |         |
 | 16  |                                                                        |         |         |

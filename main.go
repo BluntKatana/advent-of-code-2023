@@ -6,6 +6,7 @@ import (
 	"day10"
 	"day11"
 	"day12"
+	"day13"
 	"day2"
 	"day3"
 	"day4"
@@ -32,6 +33,7 @@ var days = map[int]Day{
 	4: day4.Day4{}, 5: day5.Day5{}, 6: day6.Day6{},
 	7: day7.Day7{}, 8: day8.Day8{}, 9: day9.Day9{},
 	10: day10.Day10{}, 11: day11.Day11{}, 12: day12.Day12{},
+	13: day13.Day13{},
 }
 
 // Main function
