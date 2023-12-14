@@ -44,7 +44,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 | 11  | [Cosmic Expansion](https://www.youtube.com/watch?v=qNEeGCxVewc)        | ⭐️ ⭐️ |         |
 | 12  | [Hot Springs](https://adventofcode.com/2023/day/12)                    | ✨ ⭐️  |         |
 | 13  | [Point of Incidence](https://adventofcode.com/2023/day/13)             | ⭐️ ⭐️ |         |
-| 14  |                                                                        |         |         |
+| 14  | [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14#part2) |   ⭐️   |         |
 | 15  |                                                                        |         |         |
 | 16  |                                                                        |         |         |
 | 17  |                                                                        |         |         |
