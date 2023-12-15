@@ -82,10 +82,12 @@ func (d Day14) Part2(filename *string) string {
 
 	cache := make(map[string]int)
 
-	cycles := 1_000_000_000
-	// Iterate through the cycles
-	for curr_cycle := 0; curr_cycle < cycles; curr_cycle++ {
+	MAX_CYCLES := 1_000_000_000
 
+	// Iterate through the cycles
+	for curr_cycle := 0; curr_cycle < MAX_CYCLES; curr_cycle++ {
+
+		// Tilt the dish in all directions
 		dish.TiltNorth()
 		dish.TiltWest()
 		dish.TiltSouth()
@@ -93,13 +95,15 @@ func (d Day14) Part2(filename *string) string {
 
 		// If we find a loop, we can calculate the remaining cycles
 		if _, ok := cache[dish.String()]; ok {
-			var cycle = curr_cycle - cache[dish.String()]
-			var remaining = (cycles - curr_cycle) % cycle // remaining cycles
+			var cycle_length = curr_cycle - cache[dish.String()]     // cycle length
+			var remaining = (MAX_CYCLES - curr_cycle) % cycle_length // remaining cycles
 
+			// We can skip the remaining cycles
 			if remaining == 0 {
 				break
 			}
 		} else {
+			// If we don't find a loop, we add the current dish to the cache
 			cache[dish.String()] = curr_cycle
 		}
 	}
