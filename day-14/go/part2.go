@@ -104,8 +104,6 @@ func (d Day14) Part2(filename *string) string {
 		}
 	}
 
-	dish.Print()
-
 	fmt.Println(time.Since(start))
 	return fmt.Sprint(dish.TotalLoadNorth())
 }
