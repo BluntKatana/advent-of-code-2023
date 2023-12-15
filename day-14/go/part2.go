@@ -2,6 +2,8 @@ package day14
 
 import (
 	"fmt"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -62,14 +64,48 @@ func (d *Dish) TiltEast() {
 	}
 }
 
+func (d Dish) String() string {
+	return strings.Join(d, "")
+}
+
 func (d Day14) Part2(filename *string) string {
 	var start = time.Now()
 
-	// var content, _ = os.ReadFile(*filename)
-	// var lines = strings.Split(string(content), "\n")
+	var content, _ = os.ReadFile(*filename)
+	var lines = strings.Split(string(content), "\n")
 
-	var sum = 0
+	var dish Dish
+
+	for _, line := range lines {
+		dish = append(dish, line)
+	}
+
+	cache := make(map[string]int)
+
+	cycles := 1_000_000_000
+	// Iterate through the cycles
+	for curr_cycle := 0; curr_cycle < cycles; curr_cycle++ {
+
+		dish.TiltNorth()
+		dish.TiltWest()
+		dish.TiltSouth()
+		dish.TiltEast()
+
+		// If we find a loop, we can calculate the remaining cycles
+		if _, ok := cache[dish.String()]; ok {
+			var cycle = curr_cycle - cache[dish.String()]
+			var remaining = (cycles - curr_cycle) % cycle // remaining cycles
+
+			if remaining == 0 {
+				break
+			}
+		} else {
+			cache[dish.String()] = curr_cycle
+		}
+	}
+
+	dish.Print()
 
 	fmt.Println(time.Since(start))
-	return fmt.Sprint(sum)
+	return fmt.Sprint(dish.TotalLoadNorth())
 }

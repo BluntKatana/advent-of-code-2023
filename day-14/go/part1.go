@@ -47,8 +47,6 @@ func (d *Dish) TiltNorth() {
 func (d *Dish) TotalLoadNorth() int {
 	var load = 0
 	for i := 0; i < len(*d); i++ {
-		fmt.Println((*d)[i], len(*d)-i)
-
 		for _, c := range (*d)[i] {
 			if c == 'O' {
 				load += len(*d) - i
