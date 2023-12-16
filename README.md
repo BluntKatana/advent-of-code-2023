@@ -27,7 +27,7 @@ g++ day1.cpp -o output.out && ./output.out
 
 ## Progress
 
-I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress. A ⭐️ represents a fully completed part without any help, ✨ means a part with some idea help (no code) from reddit.
+I am trying to do both GO and C++ solutions for each day, but I might not have time to do both for each day, or do them on the same day. I will try to keep the table below updated with my progress. A ⭐️ represents a fully completed part without any help, ✨ means a part with some idea help (no code) from reddit. In addition, 🌟 means that the implementation could use some performance improvements.
 
 | Day | Title                                                                  |   Go    |   C++   |
 | :-: | ---------------------------------------------------------------------- | :-----: | :-----: |
@@ -46,7 +46,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 | 13  | [Point of Incidence](https://adventofcode.com/2023/day/13)             | ⭐️ ⭐️ |         |
 | 14  | [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14#part2) | ⭐️ ⭐️ |         |
 | 15  | [Lens Library](https://adventofcode.com/2023/day/15)                   | ⭐️ ⭐️ |         |
-| 16  | [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)         |         |         |
+| 16  | [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)         | ⭐️ 🌟  |         |
 | 17  |                                                                        |         |         |
 | 18  |                                                                        |         |         |
 | 19  |                                                                        |         |         |
