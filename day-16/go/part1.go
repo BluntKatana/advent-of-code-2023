@@ -18,15 +18,15 @@ type Position struct {
 
 type PositionMap map[Position]bool
 
-func (m *MirrorGrid) Print(visited []Position) {
+func (m *MirrorGrid) Print(visited PositionMap) {
 	for y, row := range *m {
 		for x := range row {
 			var found = false
-			for _, pos := range visited {
-				if pos.x == x && pos.y == y {
-					found = true
-					break
-				}
+			if visited[Position{x, y, 1, 0}] ||
+				visited[Position{x, y, -1, 0}] ||
+				visited[Position{x, y, 0, 1}] ||
+				visited[Position{x, y, 0, -1}] {
+				found = true
 			}
 			if found {
 				fmt.Print("#")
@@ -44,11 +44,11 @@ func (m *MirrorGrid) GetEnergized(visited PositionMap) int {
 	for y, row := range *m {
 		for x := range row {
 			var found = false
-			for pos := range visited {
-				if pos.x == x && pos.y == y {
-					found = true
-					break
-				}
+			if visited[Position{x, y, 1, 0}] ||
+				visited[Position{x, y, -1, 0}] ||
+				visited[Position{x, y, 0, 1}] ||
+				visited[Position{x, y, 0, -1}] {
+				found = true
 			}
 			if found {
 				energized++
@@ -68,7 +68,7 @@ func (m *MirrorGrid) Traverse(x, y, dx, dy int, visited *PositionMap) {
 	}
 
 	// Check if we are out of bounds
-	if y < 0 || y > len(*m)-1 || x < 0 || len((*m)[y])-1 < x {
+	if y < 0 || y > len(*m)-1 || x < 0 || x >= len((*m)[y]) {
 		return
 	}
 

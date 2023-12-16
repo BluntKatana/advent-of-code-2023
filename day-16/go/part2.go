@@ -78,14 +78,8 @@ func (d Day16) Part2(filename *string) string {
 	return fmt.Sprint(maxEnergized)
 }
 
-func FindEnergized(x, y, dx, dy int, lines [][]rune) int {
+func FindEnergized(x, y, dx, dy int, grid MirrorGrid) int {
 	var positionMap = make(PositionMap)
-	var grid MirrorGrid = make([][]rune, len(lines))
-	for i, line := range lines {
-		grid[i] = []rune(line)
-	}
-	grid = MirrorGrid(grid)
 	grid.Traverse(x, y, dx, dy, &positionMap)
-	var energized = grid.GetEnergized(positionMap)
-	return energized
+	return grid.GetEnergized(positionMap)
 }
