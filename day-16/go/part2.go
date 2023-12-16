@@ -28,48 +28,15 @@ func (d Day16) Part2(filename *string) string {
 
 	wg.Add(len(grid)*2 + len(grid[0])*2)
 
-	// Check from top going down
 	for x := 0; x < len(grid); x++ {
-		go func(x int) {
-			defer wg.Done()
-			var energized = FindEnergized(x, 0, 0, 1, grid)
-			if energized > maxEnergized {
-				maxEnergized = energized
-			}
-		}(x)
-	}
-
-	// Check from bottom going up
-	for x := 0; x < len(grid); x++ {
-		go func(x int) {
-			defer wg.Done()
-			var energized = FindEnergized(x, len(grid)-1, 0, -1, grid)
-			if energized > maxEnergized {
-				maxEnergized = energized
-			}
-		}(x)
+		go FindEnergized(x, 0, 0, 1, grid, &maxEnergized, &wg)
+		go FindEnergized(x, len(grid)-1, 0, -1, grid, &maxEnergized, &wg)
 	}
 
 	// Check from left going right
 	for y := 0; y < len(grid[0]); y++ {
-		go func(y int) {
-			defer wg.Done()
-			var energized = FindEnergized(0, y, 1, 0, grid)
-			if energized > maxEnergized {
-				maxEnergized = energized
-			}
-		}(y)
-	}
-
-	// Check from right going left
-	for y := 0; y < len(grid[0]); y++ {
-		go func(y int) {
-			defer wg.Done()
-			var energized = FindEnergized(len(grid)-1, y, -1, 0, grid)
-			if energized > maxEnergized {
-				maxEnergized = energized
-			}
-		}(y)
+		go FindEnergized(0, y, 1, 0, grid, &maxEnergized, &wg)
+		go FindEnergized(len(grid)-1, y, -1, 0, grid, &maxEnergized, &wg)
 	}
 
 	wg.Wait()
@@ -78,8 +45,12 @@ func (d Day16) Part2(filename *string) string {
 	return fmt.Sprint(maxEnergized)
 }
 
-func FindEnergized(x, y, dx, dy int, grid MirrorGrid) int {
+func FindEnergized(x, y, dx, dy int, grid MirrorGrid, maxEnergized *int, wg *sync.WaitGroup) {
 	var positionMap = make(PositionMap)
 	grid.Traverse(x, y, dx, dy, &positionMap)
-	return grid.GetEnergized(positionMap)
+	var energized = grid.GetEnergized(positionMap)
+	if energized > *maxEnergized {
+		*maxEnergized = energized
+	}
+	wg.Done()
 }
