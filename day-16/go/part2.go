@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -23,37 +24,55 @@ func (d Day16) Part2(filename *string) string {
 	// Find the max energized
 	var maxEnergized = 0
 
-	// Check from top going down
-	for x := 0; x < len(grid); x++ {
-		var energized = FindEnergized(x, 0, 0, 1, grid)
-		if energized > maxEnergized {
-			maxEnergized = energized
-		}
-	}
+	var wg sync.WaitGroup
 
-	// Check from bottom going up
-	for x := 0; x < len(grid); x++ {
-		var energized = FindEnergized(x, len(grid)-1, 0, -1, grid)
-		if energized > maxEnergized {
-			maxEnergized = energized
-		}
-	}
+	wg.Add(4)
 
-	// Check from left going right
-	for y := 0; y < len(grid[0]); y++ {
-		var energized = FindEnergized(0, y, 1, 0, grid)
-		if energized > maxEnergized {
-			maxEnergized = energized
+	go func() {
+		defer wg.Done()
+		// Check from top going down
+		for x := 0; x < len(grid); x++ {
+			var energized = FindEnergized(x, 0, 0, 1, grid)
+			if energized > maxEnergized {
+				maxEnergized = energized
+			}
 		}
-	}
+	}()
 
-	// Check from right going left
-	for y := 0; y < len(grid[0]); y++ {
-		var energized = FindEnergized(len(grid)-1, y, -1, 0, grid)
-		if energized > maxEnergized {
-			maxEnergized = energized
+	go func() {
+		defer wg.Done()
+		// Check from bottom going up
+		for x := 0; x < len(grid); x++ {
+			var energized = FindEnergized(x, len(grid)-1, 0, -1, grid)
+			if energized > maxEnergized {
+				maxEnergized = energized
+			}
 		}
-	}
+	}()
+
+	go func() {
+		defer wg.Done()
+		// Check from left going right
+		for y := 0; y < len(grid[0]); y++ {
+			var energized = FindEnergized(0, y, 1, 0, grid)
+			if energized > maxEnergized {
+				maxEnergized = energized
+			}
+		}
+	}()
+
+	go func() {
+		defer wg.Done()
+		// Check from right going left
+		for y := 0; y < len(grid[0]); y++ {
+			var energized = FindEnergized(len(grid)-1, y, -1, 0, grid)
+			if energized > maxEnergized {
+				maxEnergized = energized
+			}
+		}
+	}()
+
+	wg.Wait()
 
 	fmt.Println(time.Since(start))
 	return fmt.Sprint(maxEnergized)
