@@ -48,7 +48,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 | 15  | [Lens Library](https://adventofcode.com/2023/day/15)                   | ⭐️ ⭐️ |         |
 | 16  | [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)         | ⭐️ ⭐️ |         |
 | 17  | [Clumsy Crucible](https://adventofcode.com/2023/day/17)                |         |         |
-| 18  |                                                                        |         |         |
+| 18  | [Lavaduct Lagoon](https://adventofcode.com/2023/day/18)                | ⭐️ ⭐️ |         |
 | 19  |                                                                        |         |         |
 | 20  |                                                                        |         |         |
 | 21  |                                                                        |         |         |
