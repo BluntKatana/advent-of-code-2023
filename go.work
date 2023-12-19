@@ -20,4 +20,5 @@ use (
 	./day-16/go
 	./day-17/go
 	./day-18/go
+	./day-19/go
 )
