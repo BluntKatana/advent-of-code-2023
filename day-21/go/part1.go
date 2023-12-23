@@ -9,62 +9,8 @@ import (
 
 type Day21 struct{}
 
-type Garden [][]rune
-
-func (g Garden) String() string {
-	var result string
-	for _, row := range g {
-		result += string(row) + "\n"
-	}
-	return result
-}
-
-func (g *Garden) Step() {
-	var newGarden Garden
-	for _, row := range *g {
-		var newRow []rune
-		for _, char := range row {
-			if char == 'S' || char == 'O' {
-				newRow = append(newRow, '.')
-			} else {
-				newRow = append(newRow, char)
-			}
-		}
-		newGarden = append(newGarden, newRow)
-	}
-
-	// Loop through garden and for every S or O place the O in the new garden
-	// in each direction
-	for y, row := range *g {
-		for x, char := range row {
-			if char == 'S' || char == 'O' {
-				// place O in new garden in each direction
-				for _, dir := range [4][2]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} {
-					var newX = x + dir[0]
-					var newY = y + dir[1]
-					if newX >= 0 && newX < len(row) && newY >= 0 && newY < len(*g) && newGarden[newY][newX] == '.' {
-						newGarden[newY][newX] = 'O'
-					}
-				}
-			}
-		}
-	}
-
-	// update garden
-	*g = newGarden
-}
-
-func (g Garden) Count() int {
-	var count int
-	for _, row := range g {
-		for _, char := range row {
-			if char == 'O' {
-				count++
-			}
-		}
-	}
-	return count
-}
+type Plots map[[2]int]bool
+type Rocks map[[2]int]bool
 
 func (d Day21) Part1(filename *string) string {
 	var start = time.Now()
@@ -72,24 +18,104 @@ func (d Day21) Part1(filename *string) string {
 	var content, _ = os.ReadFile(*filename)
 	var lines = strings.Split(string(content), "\n")
 
-	var garden Garden
-	for _, line := range lines {
-		var row []rune
-		for _, char := range line {
-			row = append(row, char)
+	var plots Plots = make(map[[2]int]bool)
+	var rocks Rocks = make(map[[2]int]bool)
+	for y, line := range lines {
+		for x, char := range line {
+			if char == '#' {
+				rocks[[2]int{x, y}] = true
+			} else if char == 'S' {
+				plots[[2]int{x, y}] = true
+			}
 		}
-		garden = append(garden, row)
 	}
+
+	// PrintGarden(rocks, plots)
 
 	steps := 64
 
 	for i := 0; i < steps; i++ {
-		garden.Step()
-		fmt.Printf("Step %d\n", i+1)
+		var newPlots Plots = make(map[[2]int]bool)
+		for plot := range plots {
+			for _, dir := range [4][2]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} {
+				// create new position
+				var newPos = [2]int{plot[0] + dir[0], plot[1] + dir[1]}
+
+				// check if new position does not exist yet
+				if _, ok := plots[newPos]; ok {
+					continue
+				}
+
+				// check if new position is allowed (not on rock)
+				if _, isOnRock := rocks[newPos]; isOnRock {
+					continue
+				}
+
+				// if not on rock, add to new plots
+				newPlots[newPos] = true
+			}
+		}
+
+		plots = newPlots
+		if i%1000 == 0 {
+			fmt.Println(i, len(plots))
+		}
 	}
 
-	fmt.Println(garden)
-
 	fmt.Println(time.Since(start))
-	return fmt.Sprint(garden.Count())
+	return fmt.Sprint(len(plots))
 }
+
+// func PrintGarden(rocks Rocks, plots Plots) {
+// 	var maxX, maxY int
+// 	for _, rock := range rocks {
+// 		if rock.X > maxX {
+// 			maxX = rock.X
+// 		}
+// 		if rock.Y > maxY {
+// 			maxY = rock.Y
+// 		}
+// 	}
+
+// 	for _, plot := range plots {
+// 		if plot.X > maxX {
+// 			maxX = plot.X
+// 		}
+// 		if plot.Y > maxY {
+// 			maxY = plot.Y
+// 		}
+// 	}
+
+// 	for y := 0; y <= maxY; y++ {
+// 		for x := 0; x <= maxX; x++ {
+// 			var isRock bool
+// 			for _, rock := range rocks {
+// 				if rock.X == x && rock.Y == y {
+// 					isRock = true
+// 					break
+// 				}
+// 			}
+
+// 			if isRock {
+// 				fmt.Print("#")
+// 				continue
+// 			}
+
+// 			var isPlot bool
+// 			for _, plot := range plots {
+// 				if plot.X == x && plot.Y == y {
+// 					isPlot = true
+// 					break
+// 				}
+// 			}
+
+// 			if isPlot {
+// 				fmt.Print("O")
+// 				continue
+// 			}
+
+// 			fmt.Print(".")
+// 		}
+// 		fmt.Println()
+// 	}
+// }
