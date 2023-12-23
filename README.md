@@ -51,7 +51,7 @@ I am trying to do both GO and C++ solutions for each day, but I might not have t
 | 18  | [Lavaduct Lagoon](https://adventofcode.com/2023/day/18)                | ⭐️ ⭐️ |         |
 | 19  | [Aplenty](https://adventofcode.com/2023/day/19)                        | ⭐️ ⭐️ |         |
 | 20  | [Pulse Propagation](https://adventofcode.com/2023/day/20)              |         |         |
-| 21  | [Step Counter](https://adventofcode.com/2023/day/21)                   |         |         |
+| 21  | [Step Counter](https://adventofcode.com/2023/day/21)                   |   ⭐️   |         |
 | 22  |                                                                        |         |         |
 | 23  |                                                                        |         |         |
 | 24  |                                                                        |         |         |
